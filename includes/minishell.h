@@ -1,0 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/20 10:38:10 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/05/20 11:19:24 by jvalenci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
+#define MINISHELL_H
+
+#include <stdio.h>
+/* readline */
+
+#include<stdlib.h>
+/* Malloc, calloc, free */
+
+#include <termios.h>
+/*tcgetattr, tcsetattr */
+
+#include <unistd.h>
+/* write */
+
+#include <signal.h>
+/*signal*/
+
+#include <readline/readline.h>
+/* rl_replace_line rl_on_new_line rl_redisplay */
+
+#include <readline/history.h>
+/* readline */
+
+//
+// ─── STRUCTURES ───────────────────────────────────────────────
+//
+
+/* linked list where we will store all environment variables
+key representing the variable name and value of the path*/
+
+typedef struct s_env
+{		
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+/* As minishell will create sub-processes, only global variables will be
+inherited by child processes, we need to have access to these variables to create 
+our own environment */
+typedef struct s_shell {
+	int				stdin;
+	int				stdout;
+	int				stderr;
+	int				status;
+	struct termios	term_save;
+	int				pid_count;
+	int				*pids;
+	t_env			*env;
+}	t_shell;
+
+/* linked list representing each cmd passed with its arguments if there are
+additionally, information about whether heredoc or append more are specified
+in the command line */
+typedef struct s_cmd {
+	char			*in;
+	char			*out;
+	int				heredoc;
+	int				append;
+	char			**argv;
+	struct s_cmd	*next;
+}	t_cmd;
+
+/* me make t_shell global variable */
+t_shell	*g_shell;
+
+#endif
