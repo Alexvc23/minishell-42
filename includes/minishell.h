@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:38:10 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/05/20 11:19:24 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/05/20 11:32:23 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ typedef struct s_shell {
 	t_env			*env;
 }	t_shell;
 
-/* linked list representing each cmd passed with its arguments if there are
-additionally, information about whether heredoc or append more are specified
-in the command line */
+/* linked list representing each cmd passed with its arguments if there are.
+Additionally, information about whether the input will be received in heredoc
+mode and whether output file will be in append mode /* 
 typedef struct s_cmd {
 	char			*in;
 	char			*out;
