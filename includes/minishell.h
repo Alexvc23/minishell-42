@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:38:10 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/05/20 11:32:23 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/05/20 11:34:09 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_cmd {
 	struct s_cmd	*next;
 }	t_cmd;
 
-/* me make t_shell global variable */
+/* We make t_shell global variable */
 t_shell	*g_shell;
 
 #endif
