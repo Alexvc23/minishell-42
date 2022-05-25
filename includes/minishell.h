@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:38:10 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/05/20 11:34:09 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/05/22 22:00:05 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ typedef struct s_shell {
 
 /* linked list representing each cmd passed with its arguments if there are.
 Additionally, information about whether the input will be received in heredoc
-mode and whether output file will be in append mode /* 
+mode and whether output file will be in append mode */ 
+
 typedef struct s_cmd {
 	char			*in;
 	char			*out;
@@ -75,6 +76,13 @@ typedef struct s_cmd {
 }	t_cmd;
 
 /* We make t_shell global variable */
-t_shell	*g_shell;
+t_shell	*g_vars;
+
+//
+// ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
+//
+
+void reset_the_terminal(t_shell *t);
+void   ft_termios();
 
 #endif
