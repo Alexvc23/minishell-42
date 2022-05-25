@@ -19,7 +19,7 @@ void reset_the_terminal(t_shell *t)
 }
 
 /* we set attributes as needed for prompt, echoing passed input,
-stablishing cannocal input and enabling sing handling */
+stablishing cannocal input and enabling sign handling */
 void   ft_termios() 
 {
     struct termios termios_new;
