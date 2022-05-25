@@ -1,2 +1,2 @@
 # Minishell-42
-42 school Minishell implementation project 
+42 school Bash-shell implementation project 
