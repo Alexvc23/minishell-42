@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:38:10 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/05/22 22:00:05 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/05/28 17:17:00 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 
 #include <readline/history.h>
 /* readline */
+
+#include"../libft/includes/libft.h"
 
 //
 // ─── STRUCTURES ───────────────────────────────────────────────
@@ -84,5 +86,9 @@ t_shell	*g_vars;
 
 void reset_the_terminal(t_shell *t);
 void   ft_termios();
+
+// builtins
+int	echo(char **argv);
+
 
 #endif

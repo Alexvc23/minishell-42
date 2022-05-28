@@ -6,14 +6,14 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/05/25 19:56:40 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/05/28 17:42:00 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-/* function called by signal SIGINT(interrupt from keyboard) this
-will mimic shell prompt behavior */
+/* function called by signal SIGINT(interrupt from keyboard) in main program
+this will mimic shell prompt behavior */
 void handler (int status)
 {
 if (status == SIGINT)
