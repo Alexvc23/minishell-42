@@ -13,19 +13,19 @@
 #include"minishell.h"
 
 /* Return the value of the key passed as argument, the value will be
- an envinonment variable store in the t_env structure */
-char *ft_get_node_value(t_env **head, char *key)
+   an envinonment variable store in the t_env structure */
+char	*ft_get_node_value(t_env **head, char *key)
 {
-    t_env *tmp;
+	t_env	*tmp;
 
-    tmp = *head;
-    if (!*head)
-        return (NULL);
-    while (tmp)
-    {
-        if (!ft_strncmp(tmp->key, key, ft_strlen(key)))
-            return (tmp->value);
-        tmp = tmp->next;
-    }
-    return (NULL);
+	tmp = *head;
+	if (!*head)
+		return (NULL);
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->key, key, ft_strlen(key)))
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return (NULL);
 }

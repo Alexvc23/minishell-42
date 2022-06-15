@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   size_list.c                                        :+:      :+:    :+:   */
+/*   ft_charnct.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/30 12:02:08 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/05/30 12:02:12 by jvalenci         ###   ########.fr       */
+/*   Created: 2022/06/12 11:18:56 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/06/15 10:44:22 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-/* we count the number of node in a linked list passing as argumet its head */
-int	ft_size_list(t_env *head)
+int	ft_charcnt(char *str, char c)
 {
-	int		count;
-	t_env	*ptr;
+	int	counter;
 
-	if (!head)
-		return (0);
-	ptr = head;
-	count = 0;
-	while (ptr)
+	counter = 0;
+	if (!str || !c)
+		return (counter);
+	while (*str && *str == c)
 	{
-		count++;
-		ptr = ptr->next;
+		counter++;
+		str++;
 	}
-	return (count);
+	return (counter);
 }

@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   size_list.c                                        :+:      :+:    :+:   */
+/*   ft_check_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/30 12:02:08 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/05/30 12:02:12 by jvalenci         ###   ########.fr       */
+/*   Created: 2022/06/13 09:03:02 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/06/14 11:46:28 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-/* we count the number of node in a linked list passing as argumet its head */
-int	ft_size_list(t_env *head)
+/* Checks correct quote insertion, making sure ther each quote character has a 
+   pair  */
+void	ft_check_quotes(char *line)
 {
-	int		count;
-	t_env	*ptr;
+	char	quote;
+	int		i;
 
-	if (!head)
-		return (0);
-	ptr = head;
-	count = 0;
-	while (ptr)
+	i = -1;
+	quote = 0;
+	while (line[++i])
 	{
-		count++;
-		ptr = ptr->next;
+		if (!quote && (line[i] == '\'' || line[i] == '\"'))
+			quote = line[i];
+		else if (line[i] == quote)
+			quote = 0;
 	}
-	return (count);
+	if (quote)
+		printf("%s\n", "Syntax error: wrong quotation usage");
+	else
+		ft_check_redir(line);
 }

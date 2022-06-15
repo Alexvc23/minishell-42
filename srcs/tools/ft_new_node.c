@@ -12,16 +12,16 @@
 
 #include"minishell.h"
 /* we create a new node and we inicilize their values with the arguments
- passed */
-t_env *ft_new_node (char *key, char *value)
+   passed */
+t_env	*ft_new_node(char *key, char *value)
 {
-    t_env *new;
+	t_env	*new;
 
-    new = malloc(sizeof(t_env));
-    if (!new)
-        return (NULL);
-    new->key = key;
-    new->value = value;
-    new->next = NULL;
-    return (new);
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->key = key;
+	new->value = value;
+	new->next = NULL;
+	return (new);
 }

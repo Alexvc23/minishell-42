@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   size_list.c                                        :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/30 12:02:08 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/05/30 12:02:12 by jvalenci         ###   ########.fr       */
+/*   Created: 2022/06/15 21:37:59 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/06/15 21:38:01 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-/* we count the number of node in a linked list passing as argumet its head */
-int	ft_size_list(t_env *head)
+/* print environement variables stored in t_env struct*/
+void	ft_env(t_env *env)
 {
-	int		count;
-	t_env	*ptr;
+	t_env	*tmp;
 
-	if (!head)
-		return (0);
-	ptr = head;
-	count = 0;
-	while (ptr)
+	tmp = env;
+	if (!env)
+		return ;
+	while (tmp)
 	{
-		count++;
-		ptr = ptr->next;
+		printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
 	}
-	return (count);
 }

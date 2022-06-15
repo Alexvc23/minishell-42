@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:38:10 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/06/05 10:06:45 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/06/14 12:00:01 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 //
 
 /* linked list where we will store all environment variables
-key representing the variable name and value of the path*/
+key representing the variable name and value the path*/
 
 typedef struct s_env
 {		
@@ -62,9 +62,9 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-/* As minishell will create sub-processes, only global variables will be
-inherited by child processes, we need to have access to these variables to create 
-our own environment */
+/* As minishell will create sub-processes, only global variables
+ will be inherited by child processes, we need to have access to
+ these variables to create our own environment */
 typedef struct s_shell {
 	int				stdin;
 	int				stdout;
@@ -76,9 +76,9 @@ typedef struct s_shell {
 	t_env			*env;
 }	t_shell;
 
-/* linked list representing each cmd passed with its arguments if there are.
-Additionally, information about whether the input will be received in heredoc
-mode and whether output file will be in append mode */ 
+/* linked list representing each cmd passed with its arguments if
+there are. Boolean checking heredoc mode, output file append mode,
+ and input file or output file path if ther is one */
 
 typedef struct s_cmd {
 	char			*in;
@@ -99,12 +99,19 @@ t_shell	*g_vars;
 /* parsing */
 t_env	*ft_set_env(char **argv);
 
+/* check */
+void    ft_check_quotes(char *line);
+void    ft_check_pipe(char *line);
+void    ft_check_redir(char *line);
+
 /* I/O  */
-void reset_the_terminal(t_shell *t);
+void	reset_the_terminal(t_shell *t);
 void   ft_termios();
 
 // builtins
-int	echo(char **argv);
+int		ft_cd(char **argv, t_env **env);
+int		ft_echo(char **argv);
+void	ft_env(t_env *env);
 
 // tools
 void	ft_add_node_back(t_env **head, t_env *new);
@@ -115,10 +122,7 @@ t_env	*ft_last_node(t_env *head);
 void	ft_update_env(t_env **env, char *key, char *value);
 char	*ft_get_node_value(t_env **head, char *key);
 void	ft_update_env(t_env **env, char *key, char *value);
-int		ft_cd(char **argv, t_env **env);
-int		ft_strcmp(char *s, char *s1);
-
-/* at the moment prints the contet of env strucuture */
-void    ft_env(t_env *env);
+int		ft_strcmp2(char *s, char *s1);
+int		ft_charcnt(char *str, char c);
 
 #endif
