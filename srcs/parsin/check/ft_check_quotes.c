@@ -6,13 +6,13 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 09:03:02 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/06/14 11:46:28 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/07/03 10:58:15 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-/* Checks correct quote insertion, making sure ther each quote character has a 
+/* Checks correct quote insertion, making sure that each quote character has a 
    pair  */
 void	ft_check_quotes(char *line)
 {

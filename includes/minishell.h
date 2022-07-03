@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:38:10 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/06/14 12:00:01 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:51:20 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,6 @@ char	*ft_get_node_value(t_env **head, char *key);
 void	ft_update_env(t_env **env, char *key, char *value);
 int		ft_strcmp2(char *s, char *s1);
 int		ft_charcnt(char *str, char c);
+int	ft_before_token(char *line, int i);
 
 #endif

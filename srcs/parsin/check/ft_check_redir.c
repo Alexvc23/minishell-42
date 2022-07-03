@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 10:57:51 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/06/15 10:50:39 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/07/03 12:07:15 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_sub_redir(char *line, int *err, int i)
 	{
 		while (line[i + j])
 		{
-			if (line[i + j] != ' ' && line[i + j] != '|')
+			if (!ft_strchr("< >|", line[i + j]))
 				found = 1;
 			j++;
 		}
@@ -35,6 +35,11 @@ void	ft_sub_redir(char *line, int *err, int i)
 		*err = 2;
 }
 
+/*	- checks there are no more that 3 '<' '>' metacaracters per token
+	- checks there is at least one alphanumeric character after any of tokens
+	- We are not verifying if we have a argument before token '< > << >> '
+	as the error will be handled by the execution
+	 "> < >> <<" */
 void	ft_check_redir(char *line)
 {
 	int	i;

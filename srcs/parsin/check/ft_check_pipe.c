@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 09:35:30 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/06/15 11:56:48 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:15:54 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 /* Checks the following aspects
    - prints error if Token '|' is outside quotation marks in the case we are
-   using in the passed line
+   using them in the passed line
    - Prints error if token '|' is followed by '< >|' and not by any other 
-   character */
+   character alphanumeric character */
 
 void	ft_manipulate(char *line, int err)
 {
@@ -48,7 +48,9 @@ int	ft_before_token(char *line, int i)
 	return (0);
 }
 
-/* this fonction works along side ft_check_pipe */
+/* this fonction works along side ft_check_pipe, checks if we are using only one '|'
+metacharacter as we won't do the bunus part. Finally, it makes sure we are passing
+an alphannumeric character after metacharacter pipe '|' */
 void	ft_workforce(char *line, int i, int *err)
 {
 	int	j;
