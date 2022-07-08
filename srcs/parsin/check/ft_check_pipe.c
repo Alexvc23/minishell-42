@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 09:35:30 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/08 12:09:15 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/07/08 15:47:20 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,13 @@ void	ft_manipulate(char *line, int err)
 		free(line);
 		while (cmd)
 		{
-			printf("%s\n", cmd->argv[0]);
+			int i = -1;
+			while (cmd->argv[i++])
+				printf("cmd arg[%d]: %s\n", i, cmd->argv[i]);
+			printf("append mode: %d\n", cmd->append);
+			printf("heredoc: %d\n", cmd->heredoc);
+			printf("input file: %s\n", cmd->in);
+			printf("output file: %s\n", cmd->out);
 			cmd = cmd->next;
 		}
 	}

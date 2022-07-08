@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/08 12:10:53 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/07/08 16:02:14 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char  *ft_get_afterre(char *cmd, int index, int heredoc)
     int start;
 
     start = index + 1 + heredoc;
-    if (!cmd[start] == 0)
+    if (!cmd[start])
         return (NULL);
     while (cmd[start] == ' ')
         start++;
