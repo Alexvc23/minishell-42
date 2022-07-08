@@ -6,11 +6,11 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 09:35:30 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/03 11:15:54 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/07/08 12:09:15 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include "minishell.h"
 
 /* Checks the following aspects
    - prints error if Token '|' is outside quotation marks in the case we are
@@ -20,11 +20,17 @@
 
 void	ft_manipulate(char *line, int err)
 {
+	t_cmd	*cmd;
+
 	if (!err)
 	{
-		// parse_cmd
+		cmd = ft_parse_cmd(line);
 		free(line);
-		// exec(line)
+		while (cmd)
+		{
+			printf("%s\n", cmd->argv[0]);
+			cmd = cmd->next;
+		}
 	}
 	else if (err == 1)
 		printf("%s\n", "Syntax error: unexpected token ||");
