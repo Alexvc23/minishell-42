@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/07 22:55:22 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/07/08 19:16:04 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*ft_set_s(char *line, char *previous, int isInquote)
 	char	*temp2;
 
 	temp2 = NULL;
+	temp = NULL;
+	final = NULL;
 	if (isInquote == 0)
 	{
 		temp2 = ft_with_var(line, NULL, NULL, 0);
