@@ -1,4 +1,14 @@
-EXEC = output
+
+# ****     ****     **     **   ** ******** ******** ** **       ********
+# /**/**   **/**    ****   /**  ** /**///// /**///// /**/**      /**/////
+# /**//** ** /**   **//**  /** **  /**      /**      /**/**      /**
+# /** //***  /**  **  //** /****   /******* /******* /**/**      /*******
+# /**  //*   /** **********/**/**  /**////  /**////  /**/**      /**////
+# /**   /    /**/**//////**/**//** /**      /**      /**/**      /**
+# /**        /**/**     /**/** //**/********/**      /**/********/********
+# //         // //      // //   // //////// //       // //////// ////////
+
+EXEC = minishell 
 AT	= @
 CC = gcc
 SRC_DIR := srcs/
@@ -17,14 +27,34 @@ SRCS = $(addprefix $(SRC_DIR),$(C_FILES))
 # objects from main folder srcs and subfolders
 OBJ = $(addprefix $(OBJ_DIR),$(C_FILES:.c=.o))
 
+# ─── Color ──────────────────────────────────────────────────────────────────────
+RESET	= 	\033[0;0m
+ERASE	=	\033[2K\r
+GREY	=	\033[30m
+RED		=	\033[31m
+GREEN	=	\033[32m
+YELLOW	=	\033[33m
+BLUE	=	\033[34m
+PINK	=	\033[35m
+CYAN	=	\033[36m
+WHITE	=	\033[37m
+BOLD	=	\033[1m
+UNDER	=	\033[4m
+SUR		=	\033[7m
+END		=	\033[0m
+CENTER	=	\033[60G
+
+# ─── Rules ──────────────────────────────────────────────────────────────────────
 all: libft $(EXEC)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	mkdir -p $(OBJ_DIR) $(SUBDIRS)
-	$(CC) -I$(INC) $(FLAGS) -c $< -o $@
+	$(AT)mkdir -p $(OBJ_DIR) $(SUBDIRS)
+	$(AT)$(CC) -I$(INC) $(FLAGS) -c $< -o $@
+	$(AT)printf "$(CYAN) Creating ----> $(RESET)$(BOLD)$(WHITE) $@ $(GREEN)$(CENTER)$(CENTER) ( ✔ ) ️$(END)\n"
 
 $(EXEC) : $(OBJ)
-	$(CC) $(OBJ) -o $@ $(LIB) $(LIBFT)libft.a
+	 $(AT)$(CC) $(OBJ) -o $@ $(LIB) $(LIBFT)libft.a
+	$(AT)printf "$(BOLD) $(RED) Executable ----> $(RESET)$(BOLD)$(CYAN) $@ $(GREEN)$(CENTER) ( ✔ ) ️$(END)\n"
 
 # rule to debug Makefile
 print:
@@ -34,17 +64,20 @@ print:
 	$(info subdirectories = $(SUBDIRS))
 
 libft:
-	$(MAKE) -C $(LIBFT)
+	$(AT)$(MAKE) -sC $(LIBFT)
 
 clean:
-	rm -rf $(OBJ_DIR)
-	make -C $(LIBFT) clean
+	$(AT)rm -rf $(OBJ_DIR)
+	$(AT)make  -sC  $(LIBFT) clean
+	@printf "$(BOLD)$(RED)(MINISHELL) ----> $(RESET)$(BOLD)$(WHITE) Removing objects $(END)\n"
 
 
-fclean: clean
-	rm -rf $(EXEC)
-	make -C $(LIBFT) fclean
+fclean: 
+	$(AT)rm -rf $(OBJ_DIR) $(EXEC)
+	$(AT)make -sC$(LIBFT) fclean
+	@printf "$(BOLD)$(RED)(MINISHELL) ----> $(RESET)$(BOLD)$(WHITE) Cleaning everything up $(END)\n"
 	
 re: fclean all
 
 .PHONY: libft fclean all
+.SILENT: all fclean clean 

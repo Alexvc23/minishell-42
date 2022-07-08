@@ -79,6 +79,7 @@ C_BONUS = \
 
 # ─── COLORS ─────────────────────────────────────────────────────────────────────
 
+RESET	= 	\033[0;0m
 ERASE	=	\033[2K\r
 GREY	=	\033[30m
 RED		=	\033[31m
@@ -92,6 +93,7 @@ BOLD	=	\033[1m
 UNDER	=	\033[4m
 SUR		=	\033[7m
 END		=	\033[0m
+CENTER	=	\033[60G
 
 # ─── RULES ──────────────────────────────────────────────────────────────────────
 	
@@ -100,23 +102,24 @@ all: $(LIBRARY)
 $(LIBRARY): $(OBJS) $(SRCS)
 	$(AT)-ar -rcs $(LIBRARY) $(OBJS)
 	$(AT)-ranlib $(LIBRARY)
-	@printf "$(ERASE)$(ERASE)$(BLUE)> Creating:$(BOLD)$(CYAN) $@ $(END)\n"
+	@printf " $(BOLD)$(RED) Library ----> $(BOLD)$(CYAN) $@ $(END)\n"
 
 $(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c $(INCS) Makefile | $(DIR_OBJS)
 	$(AT) $(CC) $(FLAGS) -I $(DIR_INCS) -c $< -o $@
-	@printf "$(ERASE)$(ERASE)$(BLUE)> Creating: $(RED) $@ $(END)\n"
+	@printf "$(CYAN) Creating ----> $(RESET)$(BOLD)$(WHITE) $@ $(GREEN) $(CENTER) ( ✔ ️)$(END)\n"
 
 $(DIR_OBJS):
 	$(AT)-mkdir -p $@ 
 	
 clean:
-	@echo Removing object files
 	$(AT)-rm -rf $(DIR_OBJS)	 
+	@printf "$(BOLD)$(RED)(LIBFT) ----> $(RESET)$(BOLD)$(WHITE) Removing objects $(END)\n"
 
-fclean: clean
-	@echo Removing application
-	$(AT)-rm -f $(LIBRARY)
+fclean: 
+	$(AT)-rm -rf $(DIR_OBJS) $(LIBRARY)
+	@printf "$(BOLD)$(RED)(LIBFT) ----> $(RESET)$(BOLD)$(WHITE) Cleaning everything up $(END)\n"
 re: fclean all	
 
 .PHONY: all clean fclean
 .DEFAULT: all
+.SILENT: all
