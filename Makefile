@@ -16,7 +16,7 @@ OBJ_DIR := objs/
 INC = includes/
 FLAGS := -g -Wall -Werror -Wextra
 # libraries to use readline functions
-LIB =  -I$(INC) -L/usr/local/lib -I/usr/local/include -lreadline
+LIB =  -I$(INC) -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline
 LIBFT = libft/
 # subdirectories to create in obj folder
 SUBDIRS = $(addprefix $(OBJ_DIR),$(shell find srcs/ -type d | cut -c 6-))
