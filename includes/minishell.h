@@ -155,6 +155,8 @@ void   ft_termios();
 int		ft_cd(char **argv, t_env **env);
 int		ft_echo(char **argv);
 void	ft_env(t_env *env);
+void	ft_pwd(t_env *env);
+void	ft_exit(int status, t_shell *vars);
 
 // tools
 void	ft_add_node_back(t_env **head, t_env *new);
