@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 09:35:30 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/08 15:47:20 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/07/29 10:07:06 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ft_manipulate(char *line, int err)
 	{
 		cmd = ft_parse_cmd(line);
 		free(line);
+		printf("Number of elements: %i\n", ft_size_list2(cmd));
+		printf("---------------\n");
 		while (cmd)
 		{
 			int i = -1;
@@ -35,6 +37,7 @@ void	ft_manipulate(char *line, int err)
 			printf("heredoc: %d\n", cmd->heredoc);
 			printf("input file: %s\n", cmd->in);
 			printf("output file: %s\n", cmd->out);
+			printf("---------------\n");
 			cmd = cmd->next;
 		}
 	}

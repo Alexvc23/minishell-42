@@ -100,8 +100,24 @@ typedef struct s_cmd {
 	struct s_cmd	*next;
 }	t_cmd;
 
+// This is my old structure for pipex, I'm figuring out what 
+// need to be removed from it as I'm adapting my pipex to this project
+
+typedef struct s_spellbook {
+//	int		f1;  cmd->in
+//	int		f2;  cmd->next->out
+	int		tube[2];
+	char	**paths;
+//	char	**args1; cmd->argv
+//	char	**args2; cmd->next->argv
+	pid_t	*ids;
+	int		status;
+}	t_spellbook;
+
 /* We make t_shell global variable */
 t_shell	*g_vars;
+
+
 
 //
 // ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
@@ -163,10 +179,14 @@ void	ft_add_node_back(t_env **head, t_env *new);
 t_env	*ft_new_node(char *key, char *value);
 void	ft_replase_nv(t_env **env, char *key, char *value);
 int		ft_size_list(t_env *head);
+int		ft_size_list2(t_cmd *cmd);
 t_env	*ft_last_node(t_env *head);
 char	*ft_get_node_value(t_env **head, char *key);
 void	ft_update_env(t_env **env, char *key, char *value);
 int		ft_strcmp2(char *s, char *s1);
 int		ft_charcnt(char *str, char c);
+
+// exec
+
 
 #endif
