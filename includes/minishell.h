@@ -15,34 +15,42 @@
 #define CD_OLD 2
 #define CD_PATH_HOME 3
 
-#include <stdio.h>
 /* readline */
+#include <stdio.h>
 
-#include<stdlib.h>
 /* Malloc, calloc, free */
+#include<stdlib.h>
 
-#include <termios.h>
 /*tcgetattr, tcsetattr */
+#include <termios.h>
 
-#include <unistd.h>
 /* stat */
 /* write */
 /* chdir */
+#include <unistd.h>
 
-#include <signal.h>
 /*signal*/
-#include <readline/readline.h>
+#include <signal.h>
+
 /* rl_replace_line rl_on_new_line rl_redisplay */
+#include <readline/readline.h>
 
-#include <readline/history.h>
 /* readline */
+#include <readline/history.h>
 
+/* stat */
 #include<sys/stat.h>
-/* stat */
 
+/* stat */
 #include<sys/types.h>
-/* stat */
 
+/* Error handling */
+# include <errno.h>
+
+/* wait */
+#include <wait.h>
+
+#include <fcntl.h>
 
 #include"../libft/includes/libft.h"
 
@@ -156,7 +164,7 @@ void	ft_set_temp_end(char **result, int i, char **tempEnd);
 void	ft_set_temp_result(char **result, char **tempStart, char **tempResult);
 void	ft_rest_while(char **tempEnd, int *i, char **result, char **tempResult);
 void	without_quote_args(t_cmd *env);
-int	ft_get_next_space(char *cmd, int index);
+int		ft_get_next_space(char *cmd, int index);
 
 /* check */
 void    ft_check_quotes(char *line);
@@ -170,8 +178,8 @@ void   ft_termios();
 // builtins
 int		ft_cd(char **argv, t_env **env);
 int		ft_echo(char **argv);
-void	ft_env(t_env *env);
-void	ft_pwd(t_env *env);
+int		ft_env(t_env **env);
+int		ft_pwd(t_env **env);
 void	ft_exit(int status, t_shell *vars);
 
 // tools
@@ -185,8 +193,18 @@ char	*ft_get_node_value(t_env **head, char *key);
 void	ft_update_env(t_env **env, char *key, char *value);
 int		ft_strcmp2(char *s, char *s1);
 int		ft_charcnt(char *str, char c);
+void	ft_free_cmd(t_cmd *cmd);
+char	*ft_env_join(char *key, char *value);
+char	**ft_env_to_array(t_env **env);
+char	*ft_find_path(char **env);
+char	*ft_get_cmd(char *v_path, char *cmd);
+int		ft_is_builtin(t_cmd *cmd);
 
-// exec
-
+// EXECUTION
+void		exec(t_cmd	*cmd);
+pid_t		exec_single(t_cmd *cmd, t_env **env, int id);
+pid_t		exec_pipe(t_cmd *cmd, t_env **env);
+void		dup_redirec(t_cmd *cmd);
+int			ft_is_builtin(t_cmd *cmd);
 
 #endif

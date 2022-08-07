@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec_utils.c                                    :+:      :+:    :+:   */
+/*   exec_tool.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 11:50:44 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/08/01 12:45:23 by fdevigne         ###   ########.fr       */
+/*   Created: 2022/08/06 20:55:22 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/08/06 21:43:24 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,32 @@ int	ft_is_builtin(t_cmd *cmd)
 	return (0);
 }
 
+/* 
+dup_redirec checks if we have passed a file to the element (in) in the structure
+t_cmd, if yes it sets it to as std_input, the same with cmd->out if there is 
+something in this element it sets it as std_out
+*/
+void	dup_redirec(t_cmd *cmd)
+{
+	int	in;
+	int	out;
+
+	if (cmd->in && !cmd->heredoc)
+	{
+		in = open(cmd->in, O_RDONLY, 0777);
+		if (in < 0)
+			exit(1);
+		dup2(in, STDIN_FILENO);
+		close(in);
+	}
+	if (cmd->out)
+	{
+		out = open(cmd->out, O_WRONLY | O_CREAT | (
+					O_TRUNC * (cmd->append != 2)) | (
+					O_APPEND * (cmd->append == 2)), 0777);
+		if (out < 0)
+			exit(1);
+		dup2(out, STDOUT_FILENO);
+		close(out);
+	}
+}

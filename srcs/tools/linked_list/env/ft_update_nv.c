@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 12:04:02 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/05/31 21:50:12 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/07 15:47:18 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_update_env(t_env **env, char *key, char *value)
 		return ;
 	while (tmp)
 	{
-		if (!ft_strncmp(key, tmp->key, ft_strlen(key)))
+		if (!ft_strcmp2(key, tmp->key))
 		{
 			free(tmp->value);
 			free(key);

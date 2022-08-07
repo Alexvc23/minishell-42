@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 09:35:30 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/29 10:07:06 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/07 17:14:44 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Checks the following aspects
-   - prints error if Token '|' is outside quotation marks in the case we are
-   using them in the passed line
-   - Prints error if token '|' is followed by '< >|' and not by any other 
-   character alphanumeric character */
-
-void	ft_manipulate(char *line, int err)
+/* 
+Checks the following aspects:
+--> prints error if Token '|' is outside quotation marks in the case we are
+    using them in the passed line
+--> Prints error if token '|' is followed by '< >|' and not by any other 
+    character alphanumeric character
+*/
+static void	ft_manipulate(char *line, int err)
 {
 	t_cmd	*cmd;
 
@@ -26,7 +27,8 @@ void	ft_manipulate(char *line, int err)
 	{
 		cmd = ft_parse_cmd(line);
 		free(line);
-		printf("Number of elements: %i\n", ft_size_list2(cmd));
+		exec(cmd);
+/* 		printf("Number of elements: %i\n", ft_size_list2(cmd));
 		printf("---------------\n");
 		while (cmd)
 		{
@@ -39,7 +41,7 @@ void	ft_manipulate(char *line, int err)
 			printf("output file: %s\n", cmd->out);
 			printf("---------------\n");
 			cmd = cmd->next;
-		}
+		} */
 	}
 	else if (err == 1)
 		printf("%s\n", "Syntax error: unexpected token ||");
@@ -47,9 +49,11 @@ void	ft_manipulate(char *line, int err)
 		printf("%s\n", "Syntax error: unexpected token near '|'");
 }
 
-/* return 1 if we find an alphanumeric character before the token '|' else
-   return 0, this function works along side ft_workfoce*/
-int	ft_before_token(char *line, int i)
+/* 
+return 1 if we find an alphanumeric character before the token 
+'|' else return 0, this function works along side ft_workfoce
+*/
+static int	ft_before_token(char *line, int i)
 {
 	int	j;
 
@@ -63,10 +67,13 @@ int	ft_before_token(char *line, int i)
 	return (0);
 }
 
-/* this fonction works along side ft_check_pipe, checks if we are using only one '|'
-metacharacter as we won't do the bunus part. Finally, it makes sure we are passing
-an alphannumeric character after metacharacter pipe '|' */
-void	ft_workforce(char *line, int i, int *err)
+/* 
+This fonction works along side ft_check_pipe, checks if we are 
+using only one '|' metacharacter as we won't do the bunus part.
+Finally, it makes sure we are passing an alphannumeric character
+after metacharacter pipe '|'
+ */
+static void	ft_workforce(char *line, int i, int *err)
 {
 	int	j;
 	int	found;

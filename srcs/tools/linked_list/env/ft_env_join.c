@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp2.c                                       :+:      :+:    :+:   */
+/*   ft_env_join.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/15 21:18:57 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/07 16:59:23 by jvalenci         ###   ########.fr       */
+/*   Created: 2022/08/06 17:20:18 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/08/06 18:33:15 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include "minishell.h"
 
-/* we compare two strings only if they have the same length, returning 1 (true) 
-   or 0 (false) */
-int	ft_strcmp2(char *s, char *s1)
+/* 
+Joins strings with character in the middle "="
+*/
+char *ft_env_join(char *key, char *value)
 {
-	if (!s || !s1)
-		return (0);
-	if (ft_strlen(s) == ft_strlen(s1))
-	{
-		if (!ft_strncmp(s, s1, ft_strlen(s)))
-			return (0);
-	}
-	return (1);
+    char *tmp;    
+    char *result;
+
+    tmp = ft_strjoin(key, "=");
+    result = ft_strjoin(tmp, value);
+    free(tmp);
+    return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/29 07:30:34 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/07 17:21:40 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	handler(int status)
 	{
 		rl_replace_line("", 0);
 		write(1, "^C\n", sizeof("^C\n"));
-		rl_on_new_line();
-		rl_redisplay();
 	}
+	rl_on_new_line();
+	rl_redisplay();
 	/* we need to implement sigquit in this part */
 }
 
@@ -61,7 +61,5 @@ int	main(int argc, char **argv, char **env)
 	ft_termios();
 	while (1)
 		ft_prompt();
-	free(g_vars);
-	ft_env(g_vars->env);
 	return (0);
 }

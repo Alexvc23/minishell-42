@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_env_to_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/27 15:08:07 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/08/07 15:00:49 by jvalenci         ###   ########.fr       */
+/*   Created: 2022/08/06 17:06:46 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/08/06 17:22:18 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Print current location in the system.
-
-int	ft_pwd(t_env **env)
+/* 
+Turns t_env linked list to 2d array 
+*/
+char **ft_env_to_array(t_env **env)
 {
-	t_env	*tmp;
+    char    **arr;
+    t_env   *tmp;
+    size_t  envsize;
+    size_t  i;
 
-	tmp = *env;
-	if (!env)
-		return (1);
-	while (tmp)
-	{
-        if (!ft_strncmp(tmp->key, "PWD", 3))
-        {
-		    printf("%s\n", tmp->value);
-            return (0);
-        }
+    envsize = ft_size_list(g_vars->env);
+    arr = malloc(sizeof(char *) * envsize + 1);
+    arr[envsize] = NULL;
+    if (!envsize)
+        return (arr);
+    i = 0; 
+    tmp = *env;
+    while (tmp)
+    {
+        arr[i++] = ft_env_join(tmp->key, tmp->value);
         tmp = tmp->next;
-	}
-	return (1);
+    }
+    return (arr);
 }
