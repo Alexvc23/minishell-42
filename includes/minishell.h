@@ -48,7 +48,7 @@
 # include <errno.h>
 
 /* wait */
-#include <wait.h>
+#include <sys/wait.h>
 
 #include <fcntl.h>
 
@@ -89,6 +89,7 @@ typedef struct s_shell {
 	int				stderr;
 	int				status;
 	struct termios	term_save;
+	struct termios	term_new;
 	int				pid_count;
 	int				*pids;
 	t_env			*env;

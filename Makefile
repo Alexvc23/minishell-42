@@ -15,8 +15,12 @@ SRC_DIR := srcs/
 OBJ_DIR := objs/
 INC = includes/
 FLAGS := -g -Wall -Werror -Wextra
+SYSTEM = $(shell uname -s)
+
 # libraries to use readline functions
-LIB =  -I$(INC) -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline
+RL_LIB		:=	-L$(shell brew --prefix readline)/lib
+RL_INC		:=	-I$(shell brew --prefix readline)/include
+LIB =  $(RL_INC) $(RL_LIB) -lreadline  
 LIBFT = libft/
 # subdirectories to create in obj folder
 SUBDIRS = $(addprefix $(OBJ_DIR),$(shell find srcs/ -type d | cut -c 6-))
@@ -49,11 +53,11 @@ all: libft $(EXEC)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(AT)mkdir -p $(OBJ_DIR) $(SUBDIRS)
-	$(AT)$(CC) -I$(INC) $(FLAGS) -c $< -o $@
+	$(AT)$(CC) $(RL_INC) -I$(INC) $(FLAGS) -c $< -o $@
 	$(AT)printf "$(CYAN) Creating ----> $(RESET)$(BOLD)$(WHITE) $@ $(GREEN)$(CENTER)$(CENTER) ( ✔ ) ️$(END)\n"
 
 $(EXEC) : $(OBJ)
-	 $(AT)$(CC) $(OBJ) -o $@ $(LIB) $(LIBFT)libft.a
+	 $(AT)$(CC) $(OBJ) $(LIB) $(LIBFT)libft.a -o $@
 	$(AT)printf "$(BOLD) $(RED) Executable ----> $(RESET)$(BOLD)$(CYAN) $@ $(GREEN)$(CENTER) ( ✔ ) ️$(END)\n"
 
 # rule to debug Makefile
@@ -80,4 +84,4 @@ fclean:
 re: fclean all
 
 .PHONY: libft fclean all
-.SILENT: all fclean clean 
+.SILENT: 

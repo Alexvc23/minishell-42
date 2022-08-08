@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 06:11:55 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:43:58 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ SIGQUIT will do nothing just refresh view
 */
 void	handler(int status)
 {
+	rl_redisplay();
 	if (status == SIGINT)
 	{
 		rl_replace_line("", 0);
-		write(1, "^C\n", sizeof("^C\n"));
+		write(1, "^C\n", 3);
+		rl_redisplay();
 	}
 	else if (status == SIGQUIT)
 	{
@@ -49,6 +51,8 @@ void	ft_prompt(void)
 	int		i;
 
 	i = 0;
+	rl_on_new_line();
+	rl_redisplay();
 	entry = readline("Minishell_> ");
 	if (!entry)
 		clear_exit();
@@ -72,9 +76,9 @@ int	main(int argc, char **argv, char **env)
 	g_vars->stdout = dup(STDOUT_FILENO);
 	g_vars->stderr = dup(STDERR_FILENO);
 	g_vars->env = ft_set_env(env);
+	ft_termios();
 	signal(SIGINT, handler);
 	signal(SIGQUIT, handler);
-	ft_termios();
 	while (1)
 		ft_prompt();
 	return (0);
