@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_tools.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/08 16:02:14 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:56:41 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 take heredoc delimeter string and stores it in a 2 dimentional
 array
 */
-char **ft_alloc_delimiter(char **result, char *value)
+char	**ft_alloc_delimiter(char **result, char *value)
 {
-    char **final;
-    int i;
+	char	**final;
+	int		i;
 
-    i = 0;
-    final = (char **)malloc(sizeof(char *) * 2);
-    if (!final)
-        return (NULL);
-    final[i] = value;
-    final[i + 1] = NULL;
-    if (result)
-        ft_free((void **)result);
-    return (final);
+	i = 0;
+	final = (char **)malloc(sizeof(char *) * 2);
+	if (!final)
+		return (NULL);
+	final[i] = value;
+	final[i + 1] = NULL;
+	if (result)
+		ft_free((void **)result);
+	return (final);
 }
 
 /* 
@@ -93,21 +93,21 @@ the size and the index where it should extrac the word, then pass it
 as argument to the fuction ft_substr, returning the word we are looking
 for
 */
-char  *ft_get_afterre(char *cmd, int index, int heredoc)
+char	*ft_get_afterre(char *cmd, int index, int heredoc)
 {
-    int i;
-    int start;
+	int	i;
+	int	start;
 
-    start = index + 1 + heredoc;
-    if (!cmd[start])
-        return (NULL);
-    while (cmd[start] == ' ')
-        start++;
-    i = start;
-    while ((cmd[i] != ' ' || ft_var_quotes(cmd, i, 0) == 1) &&
-            cmd[i] != '\0')
-            i++;
-    return (ft_substr(cmd, start, i - start));
+	start = index + 1 + heredoc;
+	if (!cmd[start])
+		return (NULL);
+	while (cmd[start] == ' ')
+		start++;
+	i = start;
+	while ((cmd[i] != ' ' || ft_var_quotes(cmd, i, 0) == 1)
+		&& cmd[i] != '\0')
+		i++;
+	return (ft_substr(cmd, start, i - start));
 }
 
 /* 
@@ -129,4 +129,3 @@ void	ft_cut_re(int *mode, char **path, int *i, char *cmd)
 		*path = ft_get_afterre(cmd, *i, 0);
 	}
 }
-

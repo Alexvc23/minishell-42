@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:54:48 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/07 14:46:08 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:31:12 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,13 @@ pid_t	exec_single(t_cmd *cmd, t_env **env, int id)
 	return (pid);
 }
 
-/* 
+/*
 --> For every interation, we will inicilize a pipe, setting in the parent
 	process the file descriptor that will be used as STDIN in the next 
 	pipe(cmd) execution
 
---> exec_dup checks if there is a input or output redirection to set as STD-IN-OUT 
+--> exec_dup checks if there is a input or output redirection to set as 
+STD-IN-OUT 
 
 --> During the child execution we will take the default 
 	STDIN(during first iteration) or the one set by parent process during 

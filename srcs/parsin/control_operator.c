@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   control_operator.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:59:38 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/07 22:58:09 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:28:26 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 

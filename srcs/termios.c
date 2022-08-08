@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termios.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:05:04 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 06:04:52 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:37:46 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ we set attributes as needed for prompt, echoing passed input,
 stablishing cannocal input and enabling sign handling
 */
 
-void ft_termios(void)
+void	ft_termios(void)
 {
-	struct termios termios_new;
+	struct	termios	termios_new;
 
 	if (tcgetattr(0, &g_vars->term_save))
 		perror("tcgetattr\n");

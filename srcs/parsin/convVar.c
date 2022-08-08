@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convVar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:39:20 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/08 11:25:11 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:28:55 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ result: "var"
 */
 void	ft_cut_var(int i, char **result, char **tempEnd)
 {
-
 	*tempEnd = ft_substr(*result, ft_get_next_space(*result, \
 		i + 1), ft_strlen(*result) - ft_get_next_space(*result, i));
 	*result = ft_get_first_quotes(*result + i + 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/08 19:16:04 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:25:44 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ cheks if heredoc delimiter exists. With the help of check_heredoc_quote
 determines if there are quotes in delimiter if so, store in bool_quote 
 variable a boolean (1 or 0)
 */
-void    ft_bool_heredoc(char **end, int i , int *bool_quote, char **result)
+void	ft_bool_heredoc(char **end, int i, int *bool_quote, char **result)
 {
-    if (!end[i] && !*result)
-        *result = ft_strdup("");
-    if (end[i])
-        *bool_quote = ft_quote_in_heredoc(end[i]);
-    else
-        *bool_quote = 0;
+	if (!end[i] && !*result)
+		*result = ft_strdup("");
+	if (end[i])
+		*bool_quote = ft_quote_in_heredoc(end[i]);
+	else
+		*bool_quote = 0;
 }
 
 /* 
@@ -109,7 +109,6 @@ char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 		temp = ft_gro_quotes(end[i]);
 		if (ft_strcmp2(line, temp))
 			i++;
-		// checks quotes setting a boolean in the variable.... read documenation adove
 		ft_bool_heredoc(end, i, &bool_quote, &final_line);
 		if (end[i])
 			final_line = ft_set_s(line, final_line, bool_quote);

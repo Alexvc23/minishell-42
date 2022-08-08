@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 06:11:55 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:38:40 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ this will mimic shell prompt behavior
 
 SIGQUIT will do nothing just refresh view
 */
+
 void	handler(int status)
 {
 	if (status == SIGINT)
@@ -34,7 +35,7 @@ void	handler(int status)
 	else if (status == SIGQUIT)
 	{
 		rl_redisplay();
-		return ;	
+		return ;
 	}
 	rl_on_new_line();
 	rl_redisplay();

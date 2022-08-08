@@ -11,7 +11,6 @@
 
 #include "minishell.h"
 
-
 /* 
 -->	Checks what kind of execution mode we are going to use, whether (cmd in 
 	heredoc mode, cmd in single mode or multy pipe cmd), passing env as one 
@@ -53,7 +52,8 @@ static pid_t	exec_type(t_cmd *cmd, t_env **env, int id)
 	a signal.
 
 --> WTERMSIG(wstatus) returns the number of the signal that caused the child 
-	process to terminate. this macro should be employed only if WIFSIGNALED returnd true.
+	process to terminate. this macro should be employed only if WIFSIGNALED
+	returnd true.
 */
 static void	exec_wait(t_cmd *cmd, unsigned int cmdsize)
 {
@@ -89,7 +89,7 @@ static void	exec_wait(t_cmd *cmd, unsigned int cmdsize)
 
 --> free resources, reset std-in-out default fds
 */
-void exec(t_cmd	*cmd)
+void	exec(t_cmd	*cmd)
 {
 	size_t			i;
 	size_t			cmdsize;
@@ -102,7 +102,7 @@ void exec(t_cmd	*cmd)
 	g_vars->pids = calloc(cmdsize, sizeof(int));
 	if (!cmd || !cmdsize || !g_vars->pids)
 		return ;
-	while (i++ < cmdsize)	
+	while (i++ < cmdsize)
 	{
 		g_vars->pids[i] = exec_type(cmd, &g_vars->env, i);
 		if (cmd->next)
@@ -112,7 +112,7 @@ void exec(t_cmd	*cmd)
 	while (cmd->argv[++i] && cmd->argv[i + 1])
 		;
 	ft_update_env(&g_vars->env, ft_strdup("_"), ft_strdup(cmd->argv[i]));
-	exec_wait(backup,cmdsize);
+	exec_wait(backup, cmdsize);
 	ft_free_cmd(backup);
 	dup2(g_vars->stdin, STDIN_FILENO);
 	dup2(g_vars->stdout, STDOUT_FILENO);

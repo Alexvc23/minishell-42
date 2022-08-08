@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 10:14:33 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/07 11:03:55 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/08 14:32:49 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static int	ft_wordcount(char *s, char c)
 	wc = 0;
 	while (s[i])
 	{
-		while (s[i] == c) i++;
+		while (s[i] == c)
+			i++;
 		if (((s[i] != c && ((ft_var_quotes(s, i, 0) == 0 && (
 								s[i] != '"' && s[i] != '\'')) || (ft_var_quotes(
 								s, i, 0) == 1 && (
