@@ -172,8 +172,8 @@ void    ft_check_pipe(char *line);
 void    ft_check_redir(char *line);
 
 /* I/O  */
-void	reset_the_terminal(t_shell *t);
-void   ft_termios();
+void	reset_terminal(t_shell *t);
+void	ft_termios();
 
 // builtins
 int		ft_cd(char **argv, t_env **env);

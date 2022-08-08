@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:05:04 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/07 18:10:46 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/08 06:04:52 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void ft_termios(void)
 }
 
 /* restablished default termios attributes */
-void	reset_the_terminal(t_shell *t)
+void	reset_terminal(t_shell *t)
 {
 	tcsetattr(0, 0, &t->term_save);
 }
