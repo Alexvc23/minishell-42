@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/08 17:42:06 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/08/08 17:42:10 by fdevigne         ###   ########.fr       */
+/*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/08/09 15:20:06 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,18 @@ void	handler(int status)
 	if (status == SIGINT)
 	{
 		rl_replace_line("", 0);
-		write(1, "^C\n", 3);
 		rl_redisplay();
+		write(1, "\n", 1);
 	}
 	else if (status == SIGQUIT)
+<<<<<<< HEAD
 	{
 		rl_redisplay();
 		return ;
 	}
+=======
+	{}
+>>>>>>> jvalenci
 	rl_on_new_line();
 	rl_redisplay();
 }
@@ -52,8 +56,6 @@ void	ft_prompt(void)
 	int		i;
 
 	i = 0;
-	rl_on_new_line();
-	rl_redisplay();
 	entry = readline("Minishell_> ");
 	if (!entry)
 		clear_exit();

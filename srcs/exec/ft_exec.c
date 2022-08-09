@@ -91,18 +91,18 @@ static void	exec_wait(t_cmd *cmd, unsigned int cmdsize)
 */
 void	exec(t_cmd	*cmd)
 {
-	size_t			i;
-	size_t			cmdsize;
+	int				i;
+	int				cmdsize;
 	t_cmd			*backup;
 
 	backup = cmd;
-	i = 0;
+	i = -1;
 	cmdsize = ft_size_list2(cmd);
 	g_vars->pid_count = cmdsize;
 	g_vars->pids = calloc(cmdsize, sizeof(int));
 	if (!cmd || !cmdsize || !g_vars->pids)
 		return ;
-	while (i++ < cmdsize)
+	while (++i < cmdsize)	
 	{
 		g_vars->pids[i] = exec_type(cmd, &g_vars->env, i);
 		if (cmd->next)
@@ -117,5 +117,4 @@ void	exec(t_cmd	*cmd)
 	dup2(g_vars->stdin, STDIN_FILENO);
 	dup2(g_vars->stdout, STDOUT_FILENO);
 	dup2(g_vars->stderr, STDERR_FILENO);
-	rl_redisplay();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tool.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:55:22 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 17:33:49 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/09 15:20:44 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 int	ft_is_builtin(t_cmd *cmd)
 {
-	if (cmd->argv[0][0] == 1)
+	if (!ft_strcmp2(cmd->argv[0], "echo"))
 		return (1);
-	if (ft_strncmp(cmd->argv[0], "echo", ft_strlen(cmd->argv[0])))
+	if (!ft_strcmp2(cmd->argv[0], "export"))
 		return (1);
-	if (ft_strncmp(cmd->argv[0], "export", ft_strlen(cmd->argv[0])))
+	if (!ft_strcmp2(cmd->argv[0], "unset"))
 		return (1);
-	if (ft_strncmp(cmd->argv[0], "unset", ft_strlen(cmd->argv[0])))
+	if (!ft_strcmp2(cmd->argv[0], "env"))
 		return (1);
-	if (ft_strncmp(cmd->argv[0], "env", ft_strlen(cmd->argv[0])))
+	if (!ft_strcmp2(cmd->argv[0], "pwd"))
 		return (1);
-	if (ft_strncmp(cmd->argv[0], "pwd", ft_strlen(cmd->argv[0])))
+	if (!ft_strcmp2(cmd->argv[0], "cd"))
 		return (1);
-	if (ft_strncmp(cmd->argv[0], "cd", ft_strlen(cmd->argv[0])))
-		return (1);
-	if (ft_strncmp(cmd->argv[0], "exit", ft_strlen(cmd->argv[0])))
+	if (!ft_strcmp2(cmd->argv[0], "exit"))
 		return (1);
 	return (0);
 }
