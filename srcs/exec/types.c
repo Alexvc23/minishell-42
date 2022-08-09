@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:54:48 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/09 14:38:13 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/09 14:52:50 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ static int	exec_builtin(t_cmd *cmd, t_env **env)
 {
 	// if (cmd->argv[0][0] == 1)
 	// 	return (ft_null());
-	if (ft_strcmp2(cmd->argv[0], "exit"))
+	if (!ft_strcmp2(cmd->argv[0], "exit"))
 		return (ft_exit(cmd));
-	else if (ft_strcmp2(cmd->argv[0], "echo"))
+	else if (!ft_strcmp2(cmd->argv[0], "echo"))
 		return (ft_echo(cmd->argv));
 	// else if (ft_strcmp2(cmd->argv[0], "export"))
 	// 	return (ft_export(cmd->argv, env));
 	// else if (ft_strcmp2(cmd->argv[0], "unset"))
 	// 	return (ft_unset(cmd->argv, env));
-	else if (ft_strcmp2(cmd->argv[0], "env"))
+	else if (!ft_strcmp2(cmd->argv[0], "env"))
 		return (ft_env(env));
-	else if (ft_strcmp2(cmd->argv[0], "pwd"))
+	else if (!ft_strcmp2(cmd->argv[0], "pwd"))
 		return (ft_pwd(env));
-	else if (ft_strcmp2(cmd->argv[0], "cd"))
+	else if (!ft_strcmp2(cmd->argv[0], "cd"))
 		return (ft_cd(cmd->argv, env));
 	return (1);
 }

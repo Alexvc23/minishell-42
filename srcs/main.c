@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 17:55:52 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/09 14:04:14 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	handler(int status)
 		write(1, "\n", 1);
 	}
 	else if (status == SIGQUIT)
-		;
+	{}
 	rl_on_new_line();
 	rl_redisplay();
 }
