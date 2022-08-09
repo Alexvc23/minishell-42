@@ -11,7 +11,6 @@
 
 #include "minishell.h"
 
-
 /* 
 -->	Checks what kind of execution mode we are going to use, whether (cmd in 
 	heredoc mode, cmd in single mode or multy pipe cmd), passing env as one 
