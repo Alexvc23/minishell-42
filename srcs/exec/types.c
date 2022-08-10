@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:54:48 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/09 15:20:15 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/10 18:28:15 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	exec_builtin(t_cmd *cmd, t_env **env)
 		return (ft_echo(cmd->argv));
 	// else if (ft_strcmp2(cmd->argv[0], "export"))
 	// 	return (ft_export(cmd->argv, env));
-	// else if (ft_strcmp2(cmd->argv[0], "unset"))
-	// 	return (ft_unset(cmd->argv, env));
+	else if (!ft_strcmp2(cmd->argv[0], "unset"))
+	 	return (ft_unset(cmd->argv, env));
 	else if (!ft_strcmp2(cmd->argv[0], "env"))
 		return (ft_env(env));
 	else if (!ft_strcmp2(cmd->argv[0], "pwd"))

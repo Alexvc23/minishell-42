@@ -167,7 +167,8 @@ int		ft_cd(char **argv, t_env **env);
 int		ft_echo(char **argv);
 int		ft_env(t_env **env);
 int		ft_pwd(t_env **env);
-int	ft_exit(t_cmd *cmd);
+int		ft_exit(t_cmd *cmd);
+int		ft_unset(char **argv, t_env **env);
 
 // tools
 void	ft_add_node_back(t_env **head, t_env *new);
@@ -187,6 +188,7 @@ char	*ft_find_path(char **env);
 char	*ft_get_cmd(char *v_path, char *cmd);
 int		ft_is_builtin(t_cmd *cmd);
 void	ft_free_env(t_env *env);
+int		ft_strequ(char *s1, char *s2);
 
 // EXECUTION
 void		exec(t_cmd	*cmd);

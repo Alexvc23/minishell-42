@@ -22,5 +22,4 @@ int	ft_exit(t_cmd *cmd)
     free(g_vars);
     ft_putstr_fd("exit\n", 1 );
     exit(g_vars->status);
-
 }
