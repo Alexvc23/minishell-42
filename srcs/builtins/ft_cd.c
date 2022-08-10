@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 08:18:34 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/06/13 10:36:44 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:49:28 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,18 @@ int	ft_go_to(t_env **env, char *path, int cd_type)
 	char	*new;
 	int		err_type;
 
-	if (!path)
-		err_type = ft_error("Not env variable found", NULL, 1);
 	old_wd = getcwd(NULL, 0);
 	new = path;
-	if (!old_wd)
+	if (!old_wd || !path)
 		err_type = ft_error("No env variable found", NULL, 1);
 	ft_update_env(env, ft_strdup("OLDPWD"), ft_strdup(old_wd));
-	if (cd_type == CD_PATH_HOME)
+	if (cd_type == CD_PATH_HOME || cd_type == CD_NORMAL)
 	{
-		new = ft_strjoin(ft_get_node_value(env, "HOME"), new);
-		if (!new)
+		if (cd_type == CD_NORMAL)
+			new = ft_strjoin(old_wd, new);
+		else
+			new = ft_strjoin(ft_get_node_value(env, "HOME"), new);
+		if (!new || !old_wd)
 			return (ft_error("Error joining strings", NULL, 1));
 	}
 	err_type = ft_chdir(new);
@@ -92,19 +93,22 @@ int	ft_go_to(t_env **env, char *path, int cd_type)
  */
 int	ft_cd(char **argv, t_env **env)
 {
-	if (!argv[1] || ft_strcmp2(argv[1], "~") || \
-			ft_strcmp2(argv[1], "--"))
+	if (!argv[1] || !ft_strcmp2(argv[1], "~") || \
+			!ft_strcmp2(argv[1], "--"))
 		return (ft_go_to(env, ft_strdup(ft_get_node_value(env, "HOME")), \
 					CD_NORMAL));
 	if (argv[1] && argv[2])
 		return (ft_error("cd: too many arguments", NULL, 0));
-	if (ft_strcmp2(argv[1], "-"))
+	if (!ft_strcmp2(argv[1], "-"))
 		return (ft_go_to(env, ft_strdup(ft_get_node_value(env, "OLDPWD")), \
 					CD_OLD));
 	if (!ft_strncmp(argv[1], "~/", ft_strlen(argv[1])))
 		return (ft_go_to(env, ft_strdup((argv[1] + 1)), \
 					CD_PATH_HOME));
-	if (ft_strncmp(argv[1], "/", ft_strlen(argv[1])))
+	if (!ft_strncmp(argv[1], "/", ft_strlen(argv[1])))
+		return (ft_go_to(env, ft_strdup((argv[1])), \
+					CD_NORMAL));
+	if (argv[1])
 		return (ft_go_to(env, ft_strdup((argv[1])), \
 					CD_NORMAL));
 	return (0);
