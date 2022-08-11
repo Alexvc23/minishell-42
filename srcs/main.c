@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/11 13:29:15 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:22:36 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	clear_exit(void)
 {
 	reset_terminal(g_vars);
+	ft_free_env(g_vars->env);
+	free(g_vars);
 	ft_putstr_fd("exit\n", 1);
 	exit(0);
 }
@@ -27,18 +29,14 @@ SIGQUIT will do nothing just refresh view
 
 void	handler(int status)
 {
-	rl_redisplay();
 	if (status == SIGINT)
 	{
-		rl_replace_line("", 0); 
 		rl_redisplay();
+		rl_replace_line("", 0); 
 		write(1, "\n", 1);
 	}
 	else if (status == SIGQUIT)
-	{
 		rl_redisplay();
-		return ;
-	}
 	rl_on_new_line();
 	rl_redisplay();
 }

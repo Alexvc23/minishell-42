@@ -1,19 +1,22 @@
-/* ************************************************************************** */ /*                                                                            */
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/20 10:38:10 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/03 11:51:20 by jvalenci         ###   ########.fr       */
+/*   Created: 2022/08/10 18:48:26 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/08/10 18:49:02 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
-#define CD_NORMAL 1
+#define CD_ABSOLUTE 1
 #define CD_OLD 2
-#define CD_PATH_HOME 3
+#define CD_HOME_AND_PATH 3
+#define CD_HOME 4 
+#define CD_CURREN_AND_PATH 5
 
 /* readline */
 #include <stdio.h>
