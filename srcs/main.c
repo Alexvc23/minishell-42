@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/10 16:42:15 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/11 13:29:15 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	handler(int status)
 	rl_redisplay();
 	if (status == SIGINT)
 	{
-	//	rl_replace_line("", 0); doesn't work due to compilation issue
+		rl_replace_line("", 0); 
 		rl_redisplay();
 		write(1, "\n", 1);
 	}
