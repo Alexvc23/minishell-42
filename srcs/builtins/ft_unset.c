@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:33:23 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/08/10 18:26:17 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:19:28 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,6 @@
 
 // Before unsetting the variable, where making sure that
 // It's name (the key) is a valid one
-
-int	ft_is_valid_key(char *key)
-{
-	if (!key || !key[0])
-		return (0);
-	if (!ft_isalpha(key[0]) && key[0] != '_')
-		return (0);
-	while (*(++key))
-		if (!ft_isalpha(*key) && !ft_isdigit(*key) && *key != '_')
-			return (0);
-	return (1);
-}
 
 static void	ft_freeone_env(t_env *env)
 {

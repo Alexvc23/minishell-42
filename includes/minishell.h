@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 18:48:26 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/10 18:49:02 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:17:34 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,11 @@ int		ft_env(t_env **env);
 int		ft_pwd(t_env **env);
 int		ft_exit(t_cmd *cmd);
 int		ft_unset(char **argv, t_env **env);
+void	ft_set_env2(t_env **env, char *key, char *value);
+char	*ft_get_env(t_env *env, char *key);
+void	ft_afree(void **arr);
+char	**ft_env_to_key_array(t_env **env);
+int		ft_is_valid_key(char *key);
 
 // tools
 void	ft_add_node_back(t_env **head, t_env *new);
