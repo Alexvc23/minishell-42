@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 18:48:26 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/10 18:49:02 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/12 11:55:38 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,8 +195,9 @@ int		ft_strequ(char *s1, char *s2);
 
 // EXECUTION
 void		exec(t_cmd	*cmd);
-pid_t		exec_single(t_cmd *cmd, t_env **env, int id);
 pid_t		exec_pipe(t_cmd *cmd, t_env **env);
+pid_t		exec_single(t_cmd *cmd, t_env **env, int id);
+pid_t		exec_heredoc(t_cmd *cmd);
 void		dup_redirec(t_cmd *cmd);
 int			ft_is_builtin(t_cmd *cmd);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 17:25:44 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/12 10:41:31 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 		if (!line)
 			break ;
 		temp = ft_gro_quotes(end[i]);
-		if (ft_strcmp2(line, temp))
+		if (!ft_strcmp2(line, temp))
 			i++;
 		ft_bool_heredoc(end, i, &bool_quote, &final_line);
 		if (end[i])
