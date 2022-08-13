@@ -14,7 +14,7 @@ CC = gcc
 SRC_DIR := srcs/
 OBJ_DIR := objs/
 INC = includes/
-FLAGS := -g -Wall -Werror -Wextra
+FLAGS := -g -Wall -Werror -Wextra 
 SYSTEM = $(shell uname -s)
 
 # libraries to use readline functions

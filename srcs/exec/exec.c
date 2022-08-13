@@ -60,7 +60,7 @@ static void	exec_wait(t_cmd *cmd, unsigned int cmdsize)
 	int				status;
 	unsigned int	i;
 
-	if (cmdsize > 1 || (cmd && !ft_is_builtin(cmd)))
+	if ((cmd && !ft_is_builtin(cmd)))
 	{
 		i = -1;
 		while (++i < cmdsize)

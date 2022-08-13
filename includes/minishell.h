@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 18:48:26 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/12 11:55:38 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/13 13:18:50 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int		ft_check_is_var(char *result, int i);
 void	ft_set_start(char **result, int i, char **tempStart);
 void	ft_set_temp_end(char **result, int i, char **tempEnd);
 void	ft_set_temp_result(char **result, char **tempStart, char **tempResult);
-void	ft_rest_while(char **tempEnd, int *i, char **result, char **tempResult);
+void	ft_join_temp_end(char **tempEnd, int *i, char **result, char **tempResult);
 void	without_quote_args(t_cmd *env);
 int		ft_get_next_space(char *cmd, int index);
 

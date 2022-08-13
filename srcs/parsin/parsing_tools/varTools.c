@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 15:13:11 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/08 11:49:36 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/13 13:18:12 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ and variable, with substring after variable
 example join("this is 42 school $expanded", "the best")
 result: "this is 42 school $expanded the best"
  */
-void	ft_rest_while(char **tempEnd, int *i, char **result, char **tempResult)
+void	ft_join_temp_end(char **tempEnd, int *i, char **result, char **tempResult)
 {
 	free(*result);
 	*i = ft_strlen(*tempResult) - 1;
@@ -65,5 +65,5 @@ result: "this is 42 school $expanded"
 void	ft_set_temp_result(char **result, char **tempStart, char **tempResult)
 {
 	*tempResult = ft_own_strjoin(*tempStart,
-			ft_get_node_value(&g_vars->env, *result));
+			ft_strdup(ft_get_node_value(&g_vars->env, *result)));
 }
