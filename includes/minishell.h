@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/10 18:48:26 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/11 19:17:34 by fdevigne         ###   ########.fr       */
+/*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/08/13 13:41:17 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int		ft_check_is_var(char *result, int i);
 void	ft_set_start(char **result, int i, char **tempStart);
 void	ft_set_temp_end(char **result, int i, char **tempEnd);
 void	ft_set_temp_result(char **result, char **tempStart, char **tempResult);
-void	ft_rest_while(char **tempEnd, int *i, char **result, char **tempResult);
+void	ft_join_temp_end(char **tempEnd, int *i, char **result, char **tempResult);
 void	without_quote_args(t_cmd *env);
 int		ft_get_next_space(char *cmd, int index);
 
@@ -172,6 +172,7 @@ int		ft_env(t_env **env);
 int		ft_pwd(t_env **env);
 int		ft_exit(t_cmd *cmd);
 int		ft_unset(char **argv, t_env **env);
+int		ft_export(char **argv, t_env **env);
 void	ft_set_env2(t_env **env, char *key, char *value);
 char	*ft_get_env(t_env *env, char *key);
 void	ft_afree(void **arr);
@@ -200,8 +201,9 @@ int		ft_strequ(char *s1, char *s2);
 
 // EXECUTION
 void		exec(t_cmd	*cmd);
-pid_t		exec_single(t_cmd *cmd, t_env **env, int id);
 pid_t		exec_pipe(t_cmd *cmd, t_env **env);
+pid_t		exec_single(t_cmd *cmd, t_env **env, int id);
+pid_t		exec_heredoc(t_cmd *cmd);
 void		dup_redirec(t_cmd *cmd);
 int			ft_is_builtin(t_cmd *cmd);
 

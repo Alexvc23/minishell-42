@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/11 14:22:36 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/14 08:55:24 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ void	handler(int status)
 		write(1, "\n", 1);
 	}
 	else if (status == SIGQUIT)
+	{
 		rl_redisplay();
+		return;
+	}
+
 	rl_on_new_line();
 	rl_redisplay();
 }
@@ -50,7 +54,8 @@ void	ft_prompt(void)
 	int		i;
 
 	i = 0;
-	entry = readline("Minishell_> ");
+	rl_on_new_line();
+	entry = readline("\033[1m\033[35mMinishell_> \033[0m");
 	if (!entry)
 		clear_exit();
 	while (entry[i] && entry[i] == ' ')

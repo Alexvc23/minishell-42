@@ -6,14 +6,16 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 12:04:02 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/07 15:47:18 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:01:19 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-/* finds the node containing the key str in t_env struct and replace its
-   value  */
+/* 
+--> Finds the node containing the key str in t_env struct and replace its
+	value, otherwise it creates a new node at the end 
+*/
 void	ft_update_env(t_env **env, char *key, char *value)
 {
 	t_env	*tmp;

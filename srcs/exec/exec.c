@@ -25,8 +25,8 @@ static pid_t	exec_type(t_cmd *cmd, t_env **env, int id)
 {
 	int	pid;
 
-	// if (cmd->heredoc)
-	// 	pid = exec_heredoc(cmd);
+	if (cmd->heredoc)
+		pid = exec_heredoc(cmd);
 	if (!cmd->next)
 	{
 		dup2(g_vars->stdout, STDOUT_FILENO);

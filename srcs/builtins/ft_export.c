@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:58:13 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/08/11 17:33:21 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:01:42 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,20 @@ static int	ft_putenv(t_env **env, char **keys)
 	i = -1;
 	while (keys[++i])
 	{
-		value = ft_get_env(*env, keys[i]);
+		value = ft_strdup(ft_get_node_value(env, keys[i]));
 		printf("declare -x %s=\"%s\"\n", keys[i], value);
 		free(value);
 	}
-	ft_afree((void **) keys);
+	ft_free((void **) keys);
 	return (0);
 }
 
-static int	ft_export_print(t_env **env)
+/* 
+--> Fetch all env keys and puts in a array
+--> Sorts the array alphabetically
+--> pass the array to ft_putenv and return success code 0 
+*/
+static int	ft_sort_env_arr(t_env **env)
 {
 	char	**keys;
 	char	*tmp;
@@ -82,7 +87,7 @@ static int	ft_export_one(char *str, t_env **env)
 	str[i] = '\0';
 	val = &str[i + 1];
 	if (ft_is_valid_key(key))
-		ft_set_env2(env, ft_strdup(key), ft_strdup(val));
+		ft_update_env(env, ft_strdup(key), ft_strdup(val));
 	else
 		err = ft_export_err(key);
 	str[i] = '=';
@@ -95,7 +100,7 @@ int	ft_export(char **argv, t_env **env)
 	int	i;
 
 	if (!argv[1])
-		return (ft_export_print(env));
+		return (ft_sort_env_arr(env));
 	status = 0;
 	i = 0;
 	while (argv[++i])

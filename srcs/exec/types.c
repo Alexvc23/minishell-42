@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:54:48 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/10 18:28:15 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/14 07:50:20 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static int	exec_builtin(t_cmd *cmd, t_env **env)
 		return (ft_exit(cmd));
 	else if (!ft_strcmp2(cmd->argv[0], "echo"))
 		return (ft_echo(cmd->argv));
-	// else if (ft_strcmp2(cmd->argv[0], "export"))
-	// 	return (ft_export(cmd->argv, env));
+	else if (!ft_strcmp2(cmd->argv[0], "export"))
+		return (ft_export(cmd->argv, env));
 	else if (!ft_strcmp2(cmd->argv[0], "unset"))
 	 	return (ft_unset(cmd->argv, env));
 	else if (!ft_strcmp2(cmd->argv[0], "env"))
@@ -109,7 +109,7 @@ pid_t	exec_single(t_cmd *cmd, t_env **env, int id)
 	pipe(cmd) execution
 
 --> exec_dup checks if there is a input or output redirection to set as 
-STD-IN-OUT 
+	STD-IN-OUT 
 
 --> During the child execution we will take the default 
 	STDIN(during first iteration) or the one set by parent process during 
@@ -139,5 +139,37 @@ pid_t	exec_pipe(t_cmd *cmd, t_env **env)
 	close(files[1]);
 	dup_redirec(cmd);
 	exec_cmd(cmd, env);
+	return (pid);
+}
+
+/* 
+--> set file descriptors preperly to heredoc so the execution part 
+	will execute the right file descriptor, contaning heredoc buffer  
+
+--> During the parsing part, we will store heredoc buffer in cmd->in as 
+	string, then a pipe is created and heredoc buffer is stored in file pipe [1] 
+	with the help of write
+*/
+pid_t exec_heredoc(t_cmd *cmd)
+{
+	pid_t	pid;
+	int		file[2];
+
+	if (pipe(file) < 0)
+		return (-1);
+	pid = fork();
+	if (pid)
+	{
+		dup2(file[0], STDIN_FILENO);
+		close(file[0]);
+		close(file[1]);
+		return (pid);
+	}
+	if (!cmd->in)
+		cmd->in = ft_strdup("");
+	pid = write(file[1], cmd->in, ft_strlen(cmd->in));
+	close(file[0]);
+	close(file[1]);
+	exit(pid);
 	return (pid);
 }

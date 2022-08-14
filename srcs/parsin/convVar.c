@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convVar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:39:20 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 17:28:55 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/13 13:24:24 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ result: "var"
 void	ft_cut_var(int i, char **result, char **tempEnd)
 {
 	*tempEnd = ft_substr(*result, ft_get_next_space(*result, \
-		i + 1), ft_strlen(*result) - ft_get_next_space(*result, i));
+		i + 1), ft_strlen(*result) - ft_get_next_space(*result, i + 1));
 	*result = ft_get_first_quotes(*result + i + 1);
 }
 
@@ -86,13 +86,16 @@ char	*ft_with_var(char *brut, char *tempStart, char *tempEnd, int i)
 				ft_cut_var(i, &result, &tempEnd);
 				ft_set_temp_result(&result, &tempStart, &temp_result);
 			}
-			ft_rest_while(&tempEnd, &i, &result, &temp_result);
+			ft_join_temp_end(&tempEnd, &i, &result, &temp_result);
 		}
 		i++;
 	}
 	return (result);
 }
 
+/* 
+works as strjoin but return " " if nothing in arguments 
+*/
 char	*ft_own_strjoin(char *s1, char *s2)
 {
 	char	*result;
