@@ -6,7 +6,7 @@
 /*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 19:49:35 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/16 19:55:03 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ char	*ft_get_cmd(char *v_path, char *cmd);
 int		ft_is_builtin(t_cmd *cmd);
 void	ft_free_env(t_env *env);
 int		ft_strequ(char *s1, char *s2);
-void	hide_sig();
+void	hide_sig(int sig);
 int		ft_increase_shlvl(t_env	*env);
 
 // EXECUTION
