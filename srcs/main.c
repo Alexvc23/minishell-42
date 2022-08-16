@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 15:31:07 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:04:01 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	clear_exit(void)
 {
 	reset_terminal(g_vars);
 	ft_free_env(g_vars->env);
+	ft_putstr_fd("exit", 1);
 	free(g_vars);
-	ft_putstr_fd("\n", 1);
 	exit(0);
 }
 /* 
@@ -29,6 +29,11 @@ SIGQUIT will do nothing just refresh view
 
 void	handler(int status)
 {
+	if (g_vars->pid_count > 0)
+	{
+		hide_sig();
+		return;
+	}
 	if (status == SIGINT)
 	{
 		if(!ft_strcmp2(rl_prompt, "\033[1m\033[35mMinishell_> \033[0m"))
@@ -40,11 +45,6 @@ void	handler(int status)
 	}
 	else if (status == SIGQUIT)
 	{
-		if (g_vars->pid_count > 0)
-		{
-			hide_sig();
-			return ;
-		}
 		if (rl_end && !ft_strcmp2(rl_prompt, 
 		"\033[1m\033[35mMinishell_> \033[0m"))
 			clear_exit();

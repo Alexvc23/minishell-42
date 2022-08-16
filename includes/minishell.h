@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 15:05:21 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:06:44 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ char	*ft_get_cmd(char *v_path, char *cmd);
 int		ft_is_builtin(t_cmd *cmd);
 void	ft_free_env(t_env *env);
 int		ft_strequ(char *s1, char *s2);
-void	hide_sig();
+void	hide_sig(int sig);
 
 // EXECUTION
 void		exec(t_cmd	*cmd);
