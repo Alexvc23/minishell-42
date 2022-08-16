@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 19:54:27 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/16 21:30:19 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	handler(int status)
 {
 	if (g_vars->pid_count > 0)
 	{
-		hide_sig();
+		hide_sig(status);
 		return;
 	}
 	if (status == SIGINT)
@@ -39,7 +39,7 @@ void	handler(int status)
 		if(!ft_strcmp2(rl_prompt, "\033[1m\033[35mMinishell_> \033[0m"))
 		{
 			rl_redisplay();
-//			rl_replace_line("", 0);
+			rl_replace_line("", 0);
 			write(1, "\n", 1);
 		}
 	}

@@ -109,8 +109,7 @@ void	exec(t_cmd	*cmd)
 			cmd = cmd->next;
 	}
 	i = -1;
-	while (cmd->argv[++i] && cmd->argv[i + 1])
-		;
+	while (cmd->argv[++i] && cmd->argv[i + 1]);
 	ft_update_env(&g_vars->env, ft_strdup("_"), ft_strdup(cmd->argv[i]));
 	exec_wait(backup, cmdsize);
 	ft_free_cmd(backup);
