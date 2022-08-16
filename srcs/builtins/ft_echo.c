@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 14:18:29 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/06/10 11:16:48 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/15 11:28:49 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_echo(char **argv)
 	i = 1;
 	j = 1;
 	end_of_line = 1;
-	while (argv[i] && ft_strncmp(argv[i], "-n", 3) == 0)
+	while (argv[i] && ft_strncmp(argv[i], "-n", 2) == 0)
 	{
 		end_of_line = 0;
 		while (argv[i][j])

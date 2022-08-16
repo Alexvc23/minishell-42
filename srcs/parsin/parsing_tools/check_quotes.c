@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:44:40 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 16:54:23 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/15 11:07:54 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	ft_singlequotes(char *str, int index)
 	bool_quote = 0;
 	while (i >= 0)
 	{
-		if (str[i] == '\'' && bool_quote == 0 && !ft_doublequotes(str, index))
+		if (str[i] == '\'' && bool_quote == 0 && !ft_doublequotes(str, i))
 			bool_quote = 1;
 		else if ((str[i] == '\'') && bool_quote == 1 && \
-			!ft_doublequotes(str, index))
+			!ft_doublequotes(str, i))
 			bool_quote = 0;
 		i--;
 	}
@@ -51,10 +51,10 @@ int	ft_doublequotes(char *str, int index)
 	bool_quote = 0;
 	while (i >= 0)
 	{
-		if (str[i] == '"' && bool_quote == 0 && !ft_singlequotes(str, index))
+		if (str[i] == '"' && bool_quote == 0 && !ft_singlequotes(str, i))
 			bool_quote = 1;
 		else if ((str[i] == '"') && bool_quote == 1
-			&& !ft_singlequotes(str, index))
+			&& !ft_singlequotes(str, i))
 		bool_quote = 0;
 		i--;
 	}

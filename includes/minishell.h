@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/13 13:41:17 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/15 11:38:38 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,14 @@ typedef struct s_shell {
 	int				status;
 	struct termios	term_save;
 	struct termios	term_new;
+	char			*entry;
 	int				pid_count;
 	int				*pids;
 	t_env			*env;
 }	t_shell;
+
+/* We make t_shell global variable */
+t_shell	*g_vars;
 
 /* 
 linked list representing each cmd passed with its arguments if
@@ -111,11 +115,6 @@ typedef struct s_cmd {
 	char			**argv;
 	struct s_cmd	*next;
 }	t_cmd;
-
-/* We make t_shell global variable */
-t_shell	*g_vars;
-
-
 
 //
 // ─── FUNCTIONS ──────────────────────────────────────────────────────────────────
