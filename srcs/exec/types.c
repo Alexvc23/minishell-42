@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:54:48 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 11:49:17 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:59:33 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	exec_cmd(t_cmd *cmd, t_env **env)
 if cmd is a built-in, it will be executed by the parent process to have
 the changes permanently reflected 
 */
+
 pid_t	exec_single(t_cmd *cmd, t_env **env, int id)
 {
 	pid_t	pid;

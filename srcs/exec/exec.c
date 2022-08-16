@@ -102,7 +102,7 @@ void	exec(t_cmd	*cmd)
 	g_vars->pids = calloc(cmdsize, sizeof(int));
 	if (!cmd || !cmdsize || !g_vars->pids)
 		return ;
-	while (++i < cmdsize)	
+	while (++i < cmdsize)
 	{
 		g_vars->pids[i] = exec_type(cmd, &g_vars->env, i);
 		if (cmd->next)

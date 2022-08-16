@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 15:31:07 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/16 19:48:36 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	handler(int status)
 		if(!ft_strcmp2(rl_prompt, "\033[1m\033[35mMinishell_> \033[0m"))
 		{
 			rl_redisplay();
-			rl_replace_line("", 0);
+//			rl_replace_line("", 0);
 			write(1, "\n", 1);
 		}
 	}
@@ -85,6 +85,8 @@ int	main(int argc, char **argv, char **env)
 	g_vars->stdout = dup(STDOUT_FILENO);
 	g_vars->stderr = dup(STDERR_FILENO);
 	g_vars->env = ft_set_env(env);
+	ft_update_env(&g_vars->env, ft_strdup("SHLVL"),
+		ft_itoa(ft_increase_shlvl(g_vars->env)));
 	ft_termios();
 	signal(SIGINT, handler);
 	signal(SIGQUIT, handler);
