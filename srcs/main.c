@@ -6,21 +6,11 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/15 21:45:09 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:31:07 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
-
-int event(void) 
-{
-	int result;
-
-	rl_done = 1;
-	result = RL_STATE_INITIALIZED;
-	printf("%d\n %d\n", rl_done, result);
-	return (0);
-}
 
 void	clear_exit(void)
 {
@@ -41,13 +31,7 @@ void	handler(int status)
 {
 	if (status == SIGINT)
 	{
-		if (!ft_strncmp(rl_prompt, "\033[31mHEREDOC", 11))
-		{
-			rl_signal_event_hook = event;
-			rl_replace_line("", 0);
-			return ;
-		}
-		else if(!ft_strcmp2(rl_prompt, "\033[1m\033[35mMinishell_> \033[0m"))
+		if(!ft_strcmp2(rl_prompt, "\033[1m\033[35mMinishell_> \033[0m"))
 		{
 			rl_redisplay();
 			rl_replace_line("", 0);
@@ -56,12 +40,15 @@ void	handler(int status)
 	}
 	else if (status == SIGQUIT)
 	{
-		rl_redisplay();
-		if (rl_end > 0)
+		if (g_vars->pid_count > 0)
+		{
+			hide_sig();
+			return ;
+		}
+		if (rl_end && !ft_strcmp2(rl_prompt, 
+		"\033[1m\033[35mMinishell_> \033[0m"))
 			clear_exit();
-		return;
 	}
-
 	rl_on_new_line();
 	rl_redisplay();
 }
@@ -75,8 +62,7 @@ void	ft_prompt(void)
 	int		i;
 
 	i = 0;
-	rl_on_new_line();
-	entry = ft_strdup(readline("\033[1m\033[35mMinishell_> \033[0m"));
+	entry = readline("\033[1m\033[35mMinishell_> \033[0m");
 	if (!entry)
 		clear_exit();
 	while (entry[i] && entry[i] == ' ')

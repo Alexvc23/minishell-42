@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:54:48 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/14 07:50:20 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/16 11:49:17 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	exec_cmd(t_cmd *cmd, t_env **env)
 	path_cmd = ft_get_cmd(ft_find_path(arr_env), cmd->argv[0]);
 	execve(path_cmd, cmd->argv, arr_env);
 	dup2(STDERR_FILENO, STDOUT_FILENO);
-	if (errno != 2 || (ft_strchr(cmd->argv[0], '/')))
+	if (errno != 14 || (ft_strchr(cmd->argv[0], '/')))
 		printf("%s: %s.\n", cmd->argv[0], strerror(errno));
 	else
 		printf("Command '%s' not found.\n", cmd->argv[0]);
