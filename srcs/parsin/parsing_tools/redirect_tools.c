@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_tools.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 18:31:53 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/17 19:29:33 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ array
 char	**ft_alloc_delimiter(char **result, char *value)
 {
 	char	**final;
-	(void)result;
 	int		i;
 
+	(void)result;
 	i = 0;
 	final = (char **)malloc(sizeof(char *) * 2);
 	if (!final)
@@ -57,7 +57,7 @@ char	*ft_conv_redir(char *cmd)
 	int		i;
 	char	*new;
 	char	*end;
-	char 	*start;
+	char	*start;
 
 	i = 0;
 	new = ft_strdup(cmd);
@@ -93,8 +93,8 @@ char	*ft_get_afterre(char *cmd, int index, int heredoc)
 	start = index + heredoc;
 	if (!cmd[start])
 		return (NULL);
-	while (cmd[start] == ' ' || cmd[start] == '<' 
-	|| cmd[start] == '>')
+	while (cmd[start] == ' ' || cmd[start] == '<'
+		|| cmd[start] == '>')
 		start++;
 	i = start;
 	while ((cmd[i] != ' ' || ft_var_quotes(cmd, i, 0) == 1)

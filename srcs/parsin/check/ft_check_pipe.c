@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:30:51 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 18:15:31 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/17 19:15:43 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,6 @@ Checks the following aspects:
     character alphanumeric character
 */
 
-
-// If the command is cat AND if we give it an __accessible__ file, put a \n after the execution
-void	ft_cat_newline(char *line)
-{
-	t_cmd	*cmd_cat;
-
-	cmd_cat = ft_parse_cmd(line);
-	if (!cmd_cat)
-		return ;
-	if (!ft_strcmp2(cmd_cat->argv[0], "cat") && (access(cmd_cat->argv[1], R_OK) == 0))
-		printf("\n");
-	free(cmd_cat);
-}
-
 static void	ft_manipulate(char *line, int err)
 {
 	t_cmd	*cmd;
@@ -44,16 +30,13 @@ static void	ft_manipulate(char *line, int err)
 		if (!cmd)
 			printf("%s\n", "Memory error");
 		else
-		{
 			exec(cmd);
-			// ft_cat_newline(line);
-		}
 	}
 	else if (err == 1)
 		printf("%s\n", "Syntax error: unexpected token ||");
 	else if (err == 2)
 		printf("%s\n", "Syntax error: unexpected token near '|'");
-	free(line); // shouldn't this be at the end of the function ? if err = true line won't be freed
+	free(line);
 }
 
 /* 
