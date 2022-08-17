@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:30:51 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 18:09:00 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:15:31 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	ft_manipulate(char *line, int err)
 		else
 		{
 			exec(cmd);
-			ft_cat_newline(line);
+			// ft_cat_newline(line);
 		}
 	}
 	else if (err == 1)
