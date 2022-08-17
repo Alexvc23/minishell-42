@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 09:35:30 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 17:44:55 by fdevigne         ###   ########.fr       */
+/*   Created: 2022/08/17 17:30:51 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/08/17 18:09:00 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	ft_manipulate(char *line, int err)
 		printf("%s\n", "Syntax error: unexpected token ||");
 	else if (err == 2)
 		printf("%s\n", "Syntax error: unexpected token near '|'");
-	free(line);
+	free(line); // shouldn't this be at the end of the function ? if err = true line won't be freed
 }
 
 /* 
