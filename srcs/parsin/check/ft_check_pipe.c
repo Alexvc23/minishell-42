@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:30:51 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 17:33:39 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:18:31 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	ft_manipulate(char *line, int err)
 		else
 		{
 			exec(cmd);
-			ft_cat_newline(line);
+			// ft_cat_newline(line);
 		}
 	}
 	else if (err == 1)

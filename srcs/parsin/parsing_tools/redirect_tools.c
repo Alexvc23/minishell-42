@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 16:03:35 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:25:39 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*ft_get_afterre(char *cmd, int index, int heredoc)
 		start++;
 	i = start;
 	while ((cmd[i] != ' ' || ft_var_quotes(cmd, i, 0) == 1)
-		&& cmd[i] != '\0')
+		&& cmd[i] != '\0' && cmd[i] != '<' && cmd[i] != '>')
 		i++;
 	return (ft_substr(cmd, start, i - start));
 }
