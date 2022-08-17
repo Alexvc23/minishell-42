@@ -6,7 +6,7 @@
 /*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 09:35:30 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 14:31:20 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:36:23 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,21 @@ Checks the following aspects:
 --> Prints error if token '|' is followed by '< >|' and not by any other 
     character alphanumeric character
 */
+
+
+// If the command is cat AND if we give it an __accessible__ file, put a \n after the execution
+void	ft_cat_newline(char *line)
+{
+	t_cmd	*cmd_cat;
+
+	cmd_cat = ft_parse_cmd(line);
+	if (!cmd_cat)
+		return ;
+	if (!ft_strcmp2(cmd_cat->argv[0], "cat") && (access(cmd_cat->argv[1], R_OK) == 0))
+		printf("\n");
+	free(cmd_cat);
+}
+
 static void	ft_manipulate(char *line, int err)
 {
 	t_cmd	*cmd;
@@ -26,22 +41,14 @@ static void	ft_manipulate(char *line, int err)
 	if (!err)
 	{
 		cmd = ft_parse_cmd(line);
-		free(line);
-		exec(cmd);
-/* 		printf("Number of elements: %i\n", ft_size_list2(cmd));
-		printf("---------------\n");
-		while (cmd)
+		if (!cmd)
+			printf("%s\n", "Memory error");
+		else
 		{
-			int i = -1;
-			while (cmd->argv[i++])
-				printf("cmd arg[%d]: %s\n", i, cmd->argv[i]);
-			printf("append mode: %d\n", cmd->append);
-			printf("heredoc: %d\n", cmd->heredoc);
-			printf("input file: %s\n", cmd->in);
-			printf("output file: %s\n", cmd->out);
-			printf("---------------\n");
-			cmd = cmd->next;
-		} */
+			exec(cmd);
+			ft_cat_newline(line);
+		}
+		free(line); // shouldn't this be at the end of the function ? if err = true line won't be freed
 	}
 	else if (err == 1)
 		printf("%s\n", "Syntax error: unexpected token ||");
