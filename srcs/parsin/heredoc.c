@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 11:21:18 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/17 12:09:00 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 		free(temp);
 	}
 	ft_free((void **)end);
+	end = NULL;
 	stru->heredoc = 1;
 	return (final_line);
 }

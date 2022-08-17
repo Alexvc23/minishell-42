@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 19:55:03 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/17 11:01:55 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,16 @@
 //
 // ─── STRUCTURES ───────────────────────────────────────────────
 //
+
+typedef struct	s_heredoc 
+{
+	int		i;
+	int		is_open;
+	char	**heredoc;
+	char	*temp;
+	char	*path;
+}				t_heredoc;
+
 
 /* 
 linked list where we will store all environment variables
@@ -199,6 +209,7 @@ void	ft_free_env(t_env *env);
 int		ft_strequ(char *s1, char *s2);
 void	hide_sig(int sig);
 int		ft_increase_shlvl(t_env	*env);
+t_heredoc *inicialize_heredoc(void);
 
 // EXECUTION
 void		exec(t_cmd	*cmd);
