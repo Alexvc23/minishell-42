@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:12:13 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 09:15:33 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:10:32 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ Checks the following aspects:
     character alphanumeric character
 */
 
-static void ft_manipulate(char *line, int err)
+static void	ft_manipulate(char *line, int err)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
 	if (!err)
 	{
@@ -31,7 +31,6 @@ static void ft_manipulate(char *line, int err)
 			printf("%s\n", "Memory error");
 		else
 			exec(cmd);
-		// ft_cat_newline(line);
 	}
 	else if (err == 1)
 		printf("%s\n", "Syntax error: unexpected token ||");
