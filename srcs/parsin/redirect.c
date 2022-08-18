@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:26:23 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 16:36:27 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:22:20 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,8 @@ int	ft_redirec_input(char *cmd, t_cmd *stru, char *notVar, int mode)
 			else
 			{
 				h->temp = ft_get_afterre(cmd, h->i, 0);
-				if (ft_normal_file(&mode, &h->path, &h->is_open, &h->temp) == -1)
+				if (ft_normal_file(&mode, &h->path, &h->is_open, &h->temp)
+					== -1)
 					return (-1);
 				result = ft_end_rre(h->heredoc, stru, h->path, mode);
 			}

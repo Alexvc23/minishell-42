@@ -6,7 +6,7 @@
 /*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:54:48 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 18:59:33 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:32:05 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	exec_builtin(t_cmd *cmd, t_env **env)
 {
-	// if (cmd->argv[0][0] == 1)
-	// 	return (ft_null());
 	if (!ft_strcmp2(cmd->argv[0], "exit"))
 		return (ft_exit(cmd));
 	else if (!ft_strcmp2(cmd->argv[0], "echo"))
@@ -23,7 +21,7 @@ static int	exec_builtin(t_cmd *cmd, t_env **env)
 	else if (!ft_strcmp2(cmd->argv[0], "export"))
 		return (ft_export(cmd->argv, env));
 	else if (!ft_strcmp2(cmd->argv[0], "unset"))
-	 	return (ft_unset(cmd->argv, env));
+		return (ft_unset(cmd->argv, env));
 	else if (!ft_strcmp2(cmd->argv[0], "env"))
 		return (ft_env(env));
 	else if (!ft_strcmp2(cmd->argv[0], "pwd"))
@@ -33,7 +31,7 @@ static int	exec_builtin(t_cmd *cmd, t_env **env)
 	return (1);
 }
 
-/* 
+/*
 --> This function will be used as  complement for all execution types 
 	(heredoc, single and pipe) and it will be executed as a child process 
 
@@ -151,7 +149,7 @@ pid_t	exec_pipe(t_cmd *cmd, t_env **env)
 	string, then a pipe is created and heredoc buffer is stored in file pipe [1] 
 	with the help of write
 */
-pid_t exec_heredoc(t_cmd *cmd)
+pid_t	exec_heredoc(t_cmd *cmd)
 {
 	pid_t	pid;
 	int		file[2];
