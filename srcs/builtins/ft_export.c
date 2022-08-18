@@ -6,7 +6,7 @@
 /*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:58:13 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/08/17 18:27:32 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:01:53 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ static int	ft_export_one(char *str, t_env **env)
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
-	if (!str[i] && !ft_is_valid_key(key))
+	if (!ft_is_valid_key(key))
 		return (ft_export_err(key));
+	if (!str[i])
+		return (1);
 	str[i] = '\0';
 	val = &str[i + 1];
 	if (ft_is_valid_key(key))
 		ft_update_env(env, ft_strdup(key), ft_strdup(val));
-	else
-		err = ft_export_err(key);
 	str[i] = '=';
 	return (err);
 }
