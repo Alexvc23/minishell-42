@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 12:09:00 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:55:14 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_bool_heredoc(char **end, int i, int *bool_quote, char **result)
 		*bool_quote = 0;
 }
 
+
 /* 
 -> we read from std input storinig it in a string using readline Function
 -> checks if **delimiter is sourrended by quotes
@@ -93,8 +94,10 @@ the execution part will know what to do
 -> we return the final_string contaning checked information to set it
 as input in t_cmd structure
 */
+
 char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 {
+
 	int		i;
 	int		bool_quote;
 	char	*line;
@@ -104,8 +107,8 @@ char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 	while (end[i])
 	{
 		line = readline("\033[31mHEREDOC\033[0m> ");
-		if (!line)
-			break;
+		if (!line )
+			break ;
 		temp = ft_gro_quotes(end[i]);
 		if (!ft_strcmp2(line, temp))
 			i++;
@@ -117,8 +120,56 @@ char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 	}
 	ft_free((void **)end);
 	end = NULL;
-	stru->heredoc = 1;
+	stru->heredoc = 0;
 	return (final_line);
+}
+
+pid_t ft_heredoc_fork(char **end, t_cmd *stru)
+{
+	pid_t	pid;
+	int		files[2];
+	char 	*final_line;
+
+	if (pipe(files) < 0)
+		return (-1);
+	pid = fork();
+	if (pid < 0)
+		return (-1);
+	if (pid)
+	{
+		dup2(files[0], STDIN_FILENO);
+		close(files[0]);
+		close(files[1]);
+		return (pid);
+	}
+	final_line = ft_heredoc(end, stru, NULL);
+	write(files[1], final_line, ft_strlen(final_line));
+	dup2(files[1], STDOUT_FILENO);
+	close(files[0]);
+	close(files[1]);
+	free(final_line);
+	return (pid);
+}
+
+int wait_heredoc(char **end, t_cmd *stru)
+{
+	int status;
+	pid_t pid;
+
+	reset_terminal(g_vars);
+	pid = ft_heredoc_fork(end, stru);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+	{
+		g_vars->status = WEXITSTATUS(status);
+		return (status);
+	}
+	else if (WIFSIGNALED(status))
+	{
+		g_vars->status = 2;
+		return (5);
+	}
+	return (0);
 }
 
 int	ft_open(int mode, char *path)

@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:26:23 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 10:07:59 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:51:07 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,25 @@ error
 int	ft_end_rre(char **heredoc, t_cmd *stru, char *path, int mode)
 {
 	char	*temp;
+	(void)heredoc;
 
 	temp = NULL;
-	if (heredoc && !path)
-	{
-		temp = ft_heredoc(heredoc, stru, NULL);
-		if (!temp)
-			return (-2);
-		stru->in = temp;
-	}
-	else
-	{
-		stru->in = path;
-		stru->append = mode;
-		stru->heredoc = 0;
-	}
+	stru->in = path;
+	stru->append = mode;
+	stru->heredoc = 0;
+	// if (heredoc && !path)
+	// {
+	// 	temp = ft_heredoc(heredoc, stru);
+	// 	if (!temp)
+	// 		return (-2);
+	// 	stru->in = temp;
+	// }
+	// else
+	// {
+	// 	stru->in = path;
+	// 	stru->append = mode;
+	// 	stru->heredoc = 0;
+	// }
 	return (mode);
 }
 
@@ -149,11 +153,12 @@ int	ft_redirec_input(char *cmd, t_cmd *stru, char *notVar, int mode)
 		if (cmd[h->i] == '<' && ft_var_quotes(cmd, h->i, 0) == 0)
 		{
 			if (ft_is_heredoc(notVar, &h->heredoc, &h->i, &h->path) == 1)
-				result = ft_end_rre(h->heredoc, stru, h->path, mode);
+				result = wait_heredoc(h->heredoc, stru);
 			else
 			{
 				h->temp = ft_get_afterre(cmd, h->i, 0);
-				if (ft_normal_file(&mode, &h->path, &h->is_open, &h->temp) == -1)
+				if (ft_normal_file(&mode, &h->path, &h->is_open, &h->temp)
+					== -1)
 					return (-1);
 				result = ft_end_rre(h->heredoc, stru, h->path, mode);
 			}

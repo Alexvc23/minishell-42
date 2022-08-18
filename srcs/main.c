@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 21:30:19 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:47:58 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,24 @@ void	handler(int status)
 	if (g_vars->pid_count > 0)
 	{
 		hide_sig(status);
-		return;
+		return ;
 	}
 	if (status == SIGINT)
 	{
-		if(!ft_strcmp2(rl_prompt, "\033[1m\033[35mMinishell_> \033[0m"))
+		if (!ft_strcmp2(rl_prompt, "\033[1m\033[35mMinishell_> \033[0m"))
 		{
 			rl_redisplay();
 			rl_replace_line("", 0);
 			write(1, "\n", 1);
 		}
+		if (!ft_strcmp2(rl_prompt, "\033[31mHEREDOC\033[0m> "))
+		{
+			rl_line_buffer = NULL;
+			rl_end =  1;
+		}
 	}
 	else if (status == SIGQUIT)
-	{
-		if (rl_end && !ft_strcmp2(rl_prompt, 
-		"\033[1m\033[35mMinishell_> \033[0m"))
-			clear_exit();
-	}
+		;
 	rl_on_new_line();
 	rl_redisplay();
 }
@@ -58,7 +59,7 @@ void	handler(int status)
    line to history, then we try to execute the command */
 void	ft_prompt(void)
 {
-	char 	*entry;
+	char	*entry;
 	int		i;
 
 	i = 0;

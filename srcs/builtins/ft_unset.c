@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:33:23 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/08/11 19:19:28 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:27:38 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	ft_del_env(t_env **env, char *key)
 	before->next = tmp->next;
 	ft_freeone_env(tmp);
 }
-
 
 int	ft_unset(char **argv, t_env **env)
 {

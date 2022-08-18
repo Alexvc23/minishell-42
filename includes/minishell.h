@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 11:01:55 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:48:22 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ typedef struct s_cmd {
 
 /* parsing */
 t_env	*ft_set_env(char **argv);
-char	*ft_heredoc(char **end, t_cmd *stru, char *final_line);
 t_cmd	*ft_parse_cmd(char *line);
 void	ft_create_tokens(char *cmd_b, t_cmd *cmd);
 int		ft_redirec_output(char *cmd, t_cmd *stru, char *path, int mode);
@@ -141,6 +140,8 @@ char	**ft_conv_args(char *b_cmd);
 char	*ft_own_strjoin(char *s1, char *s2);
 char	*ft_with_var(char *brut, char *tempStart, char *tempEnd, int i);
 void	ft_cut_re(int *mode, char **path, int *i, char *cmd);
+char	*ft_heredoc(char **end, t_cmd *stru, char *final_line);
+int		wait_heredoc(char **end, t_cmd *stru);
 
 /* parsing tools*/
 int		ft_doublequotes(char *str, int index);
@@ -210,6 +211,7 @@ int		ft_strequ(char *s1, char *s2);
 void	hide_sig(int sig);
 int		ft_increase_shlvl(t_env	*env);
 t_heredoc *inicialize_heredoc(void);
+int		ft_counter(t_cmd	*cmd);
 
 // EXECUTION
 void		exec(t_cmd	*cmd);
