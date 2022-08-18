@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 11:01:55 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:41:49 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #define CD_HOME_AND_PATH 3
 #define CD_HOME 4 
 #define CD_CURREN_AND_PATH 5
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4096
+# endif
 
 /* readline */
 #include <stdio.h>
@@ -218,5 +221,14 @@ pid_t		exec_single(t_cmd *cmd, t_env **env, int id);
 pid_t		exec_heredoc(t_cmd *cmd);
 void		dup_redirec(t_cmd *cmd);
 int			ft_is_builtin(t_cmd *cmd);
+
+// get_next_line
+char	*get_next_line(int fd);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+size_t	ft_strlen(const char *s);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	*ft_strchr_gnl(const char *str, char c);
+char	*ft_strfelement(char *string, char c);
+char	*ft_free_gnl(char *string);
 
 #endif
