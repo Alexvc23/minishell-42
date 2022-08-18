@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:26:23 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 16:36:27 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 10:07:59 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_redirec_output(char *cmd, t_cmd *stru, char *path, int mode)
 			{
 				ft_putstr_fd(path, 2);
 				ft_putstr_fd(" : Cannot access file or directory\n", 2);
-				return (-1);
+				 exit(1);
 			}
 		}
 		i++;
@@ -82,7 +82,7 @@ int	ft_normal_file(int *mode, char **path, int *is_open, char **temp)
 	{
 		ft_putstr_fd(*path, 2);
 		ft_putstr_fd(" : Cannot access file or directory\n", 2);
-		return (-1);
+		exit(1);
 	}
 	if (*temp)
 		free(*temp);

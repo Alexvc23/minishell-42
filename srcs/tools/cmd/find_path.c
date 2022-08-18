@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 18:33:13 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 17:03:40 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/17 19:24:10 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ char	*ft_get_cmd(char *v_path, char *cmd)
 	i = -1;
 	if (!cmd || !cmd[0]) 
 		exit(0);
-	if (!v_path || access(cmd, 0) == 0)
-		return (cmd);
 	path = ft_split(v_path, ':');
 	while (path && path[++i])
 	{
@@ -56,5 +54,7 @@ char	*ft_get_cmd(char *v_path, char *cmd)
 		free(tmp);
 		free(new_cmd);
 	}
+	if (!v_path || access(cmd, 0) == 0)
+		return (cmd);
 	return (cmd);
 }
