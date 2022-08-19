@@ -6,7 +6,7 @@
 /*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:25:13 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/08/18 19:07:56 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:20:02 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	ft_exit(t_cmd *cmd)
 	int	status;
 
 	status = ft_strnum(cmd->argv[1]);
-	if (status != 255 && cmd->argv[1] && cmd->argv[2])   // all the subsecent arguments may leak ?
+	if (status != 255 && cmd->argv[1] && cmd->argv[2])
 	{
 		ft_putstr_fd("exit\n", 1);
 		ft_putstr_fd("exit: too many arguments\n", 2);
-		return(1);
+		return (1);
 	}
 	ft_free_cmd(cmd);
 	free(g_vars->pids);
