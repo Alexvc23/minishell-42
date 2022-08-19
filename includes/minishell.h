@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 22:19:46 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:21:06 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_shell {
 	char			*entry;
 	int				pid_count;
 	int				*pids;
+	pid_t				h_pid;
 	t_env			*env;
 }	t_shell;
 

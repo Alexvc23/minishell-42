@@ -6,11 +6,20 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 22:46:27 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:21:31 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_heredoc_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		if (g_vars->h_pid)
+			kill(g_vars->h_pid, sig);
+	}
+}
 
 /* 
 -> if heredoc demiter is not quoted we search for variables in t_env
@@ -143,6 +152,7 @@ pid_t ft_heredoc_fork(char **end, t_cmd *stru)
 	int		files[2];
 
 	dup2(g_vars->stdin, STDIN_FILENO);
+	reset_terminal(g_vars);
 	if (pipe(files) < 0)
 		return (-1);
 	pid = fork();
@@ -163,12 +173,13 @@ pid_t ft_heredoc_fork(char **end, t_cmd *stru)
 int wait_heredoc(char **end, t_cmd *stru)
 {
 	int status;
-	pid_t pid;
-
-	pid = ft_heredoc_fork(end, stru);
-	if (pid == 0)
+	reset_terminal(g_vars);
+	ft_termios();
+	signal(SIGINT, ft_heredoc_handler);
+	g_vars->h_pid = ft_heredoc_fork(end, stru);
+	if (g_vars->h_pid == 0)
 		exit(0);
-	waitpid(pid, &status, 0);
+	waitpid(g_vars->h_pid, &status, 0);
 
 	if (WIFEXITED(status))
 	{

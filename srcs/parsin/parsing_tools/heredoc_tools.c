@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 10:53:12 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 18:24:30 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:06:05 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ t_heredoc	*inicialize_heredoc(void)
 	temp->heredoc = NULL;
 	temp->temp = NULL;
 	temp->is_open = -1;
+	temp->pid = 0;
 	return (temp);
 }

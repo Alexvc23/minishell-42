@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 23:09:59 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/19 11:23:28 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	handler(int status)
 	{
 			rl_redisplay();
 			rl_replace_line("", 0);
-			printf("%s", );
 			write(1, "\n", 1);
 	}
 	else if (status == SIGQUIT)
@@ -57,6 +56,8 @@ void	ft_prompt(void)
 
 	i = 0;
 	ft_termios();
+	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
 	entry = readline("\033[1m\033[35mMinishell_> \033[0m");
 	if (!entry)
 		clear_exit();
@@ -79,11 +80,10 @@ int	main(int argc, char **argv, char **env)
 	g_vars->stdin = dup(STDIN_FILENO);
 	g_vars->stdout = dup(STDOUT_FILENO);
 	g_vars->stderr = dup(STDERR_FILENO);
+	g_vars->h_pid = 0;
 	g_vars->env = ft_set_env(env);
 	ft_update_env(&g_vars->env, ft_strdup("SHLVL"),
 		ft_itoa(ft_increase_shlvl(g_vars->env)));
-	signal(SIGINT, handler);
-	signal(SIGQUIT, handler);
 	while (1)
 		ft_prompt();
 	return (0);
