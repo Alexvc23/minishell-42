@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 17:55:14 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 22:46:27 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,25 @@ char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 	return (final_line);
 }
 
+static void ft_heredoc_child(char **end, t_cmd *stru, int files[2])
+{
+	char 	*final_line;
+
+	final_line = NULL;
+	final_line = ft_heredoc(end, stru, NULL);
+	write(files[1], final_line, ft_strlen(final_line));
+	close(files[0]);
+	close(files[1]);
+	if (final_line)
+		free(final_line);
+}
+
 pid_t ft_heredoc_fork(char **end, t_cmd *stru)
 {
 	pid_t	pid;
 	int		files[2];
-	char 	*final_line;
 
+	dup2(g_vars->stdin, STDIN_FILENO);
 	if (pipe(files) < 0)
 		return (-1);
 	pid = fork();
@@ -142,23 +155,21 @@ pid_t ft_heredoc_fork(char **end, t_cmd *stru)
 		close(files[1]);
 		return (pid);
 	}
-	final_line = ft_heredoc(end, stru, NULL);
-	write(files[1], final_line, ft_strlen(final_line));
-	dup2(files[1], STDOUT_FILENO);
-	close(files[0]);
-	close(files[1]);
-	free(final_line);
-	return (pid);
+	ft_heredoc_child(end, stru, files);
+	return(pid);
 }
+
 
 int wait_heredoc(char **end, t_cmd *stru)
 {
 	int status;
 	pid_t pid;
 
-	reset_terminal(g_vars);
 	pid = ft_heredoc_fork(end, stru);
+	if (pid == 0)
+		exit(0);
 	waitpid(pid, &status, 0);
+
 	if (WIFEXITED(status))
 	{
 		g_vars->status = WEXITSTATUS(status);
@@ -167,7 +178,7 @@ int wait_heredoc(char **end, t_cmd *stru)
 	else if (WIFSIGNALED(status))
 	{
 		g_vars->status = 2;
-		return (5);
+		return (7);
 	}
 	return (0);
 }

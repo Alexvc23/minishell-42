@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:59:38 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 17:26:43 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 22:49:06 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_fill_cmd(char *cmd_b, t_cmd *cmd)
 	temp = ft_skip_spaces(ft_strdup(cmd_b));
 	free(cmd_b);
 	cmd_true = ft_with_var(temp, NULL, NULL, 0);
+	reset_terminal(g_vars);
 	err[0] = ft_redirec_input(cmd_true, cmd, temp, 0);
 	err[1] = ft_redirec_output(cmd_true, cmd, NULL, 0);
 	if ((err[0] == -1 && err[1] == -1) || err[0] == -2)

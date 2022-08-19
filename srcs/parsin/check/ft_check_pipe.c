@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:12:13 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 16:45:42 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 18:31:29 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static void ft_manipulate(char *line, int err)
 			i = ft_counter(cmd);
 			ft_update_env(&g_vars->env, ft_strdup("_"),
 			 ft_strdup(cmd->argv[i]));
-			// exec(cmd);
-			while (cmd)
+			exec(cmd);
+/* 			while (cmd)
 			{
 				printf("in: %s\n out: %s\n heredo: %d\n argv[0] %s\n",
 				 cmd->in, cmd->out, cmd->heredoc, cmd->argv[0]);
 				 cmd = cmd->next;
-			}
+			} */
 		}
 	}
 	else if (err == 1)

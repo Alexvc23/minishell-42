@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 17:48:22 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 22:19:46 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #define CD_HOME_AND_PATH 3
 #define CD_HOME 4 
 #define CD_CURREN_AND_PATH 5
+#define ERR_SIG 7
 
 /* readline */
 #include <stdio.h>
