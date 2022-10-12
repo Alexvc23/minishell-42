@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/19 11:21:06 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:58:50 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct	s_heredoc
 {
 	int		i;
 	int		is_open;
+	pid_t	pid;
 	char	**heredoc;
 	char	*temp;
 	char	*path;

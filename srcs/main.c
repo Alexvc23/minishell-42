@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/19 11:23:28 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/10/12 16:53:36 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ int	main(int argc, char **argv, char **env)
 		ft_itoa(ft_increase_shlvl(g_vars->env)));
 	while (1)
 		ft_prompt();
+	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/19 11:21:31 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/10/12 16:23:49 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	ft_heredoc_handler(int sig)
 	if (sig == SIGINT)
 	{
 		if (g_vars->h_pid)
-			kill(g_vars->h_pid, sig);
+			kill(g_vars->h_pid, 15);
+		printf("sig: %d\n pid: %d\n", sig, g_vars->h_pid);
 	}
 }
 
@@ -152,7 +153,7 @@ pid_t ft_heredoc_fork(char **end, t_cmd *stru)
 	int		files[2];
 
 	dup2(g_vars->stdin, STDIN_FILENO);
-	reset_terminal(g_vars);
+	// reset_terminal(g_vars);
 	if (pipe(files) < 0)
 		return (-1);
 	pid = fork();
@@ -169,18 +170,16 @@ pid_t ft_heredoc_fork(char **end, t_cmd *stru)
 	return(pid);
 }
 
-
 int wait_heredoc(char **end, t_cmd *stru)
 {
 	int status;
 	reset_terminal(g_vars);
-	ft_termios();
+	// ft_termios();
 	signal(SIGINT, ft_heredoc_handler);
 	g_vars->h_pid = ft_heredoc_fork(end, stru);
 	if (g_vars->h_pid == 0)
 		exit(0);
 	waitpid(g_vars->h_pid, &status, 0);
-
 	if (WIFEXITED(status))
 	{
 		g_vars->status = WEXITSTATUS(status);
