@@ -18,8 +18,8 @@ FLAGS := -g -Wall -Werror -Wextra
 SYSTEM = $(shell uname -s)
 
 # libraries to use readline functions
-RL_LIB		:=	-L$(shell brew --prefix readline)/lib
-RL_INC		:=	-I$(shell brew --prefix readline)/include
+RL_LIB		:=	-L /usr/local/lib
+RL_INC		:=	-I /usr/local/include
 LIB =  $(RL_INC) $(RL_LIB) -lreadline  
 LIBFT = libft/
 # subdirectories to create in obj folder
