@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 13:04:52 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/03/19 15:19:49 by jvalenci         ###   ########lyon.fr   */
+/*   Updated: 2022/10/19 16:23:46 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ int	ft_isspace(char c)
 	return (0);
 }
 
-int	ft_int_overflow(int xvalue, int yvalue, char operation)
+long long int	ft_int_overflow( long long int xvalue, int yvalue, \
+char operation)
 {
-	int	over_flow;
+	long long int	over_flow;
 
 	if (operation == 'a')
 		over_flow = xvalue + yvalue;
@@ -35,7 +36,7 @@ int	ft_int_overflow(int xvalue, int yvalue, char operation)
 	return (1);
 }
 
-int	ft_check_sign(int *mul, int *sym, int *i, const char *str)
+int	ft_check_sign(long long int *mul, int *sym, int *i, const char *str)
 {
 	while (str[*i] == '+' || str[*i] == '-')
 	{
@@ -48,12 +49,12 @@ int	ft_check_sign(int *mul, int *sym, int *i, const char *str)
 	return (1);
 }
 
-int	ft_atoi(const char *str)
+long long int	ft_atoi(const char *str)
 {
-	int	i;
-	int	sym;
-	int	mul;
-	int	num;
+	long long int	mul;
+	long long int	num;
+	int		i;
+	int		sym;
 
 	i = 0;
 	sym = 0;
@@ -63,8 +64,6 @@ int	ft_atoi(const char *str)
 		i++;
 	if (!ft_check_sign(&mul, &sym, &i, str))
 		return (0);
-	if (!ft_strncmp(str, "-2147483648", 11))
-		return (-2147483648);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (!ft_int_overflow(num, 10, 'm'))
@@ -82,39 +81,50 @@ int	ft_atoi(const char *str)
    printf(("test1: "));
    printf(("\\t\\v\\f' '' '+234234234\n"));
    printf(("function call: "));
-   printf(("%d\n"), ft_atoi("\t\v\f  +234234234"));
+   printf(("%lld\n"), ft_atoi("\t\v\f  +234234234"));
    printf(("------------------------------\n"));
    printf(("test2: "));
    printf(("lkfjsldkf34234234\n"));
    printf(("function call: "));
-   printf(("%d\n"), ft_atoi("lkfjsldkf34234234"));
+   printf(("%lld\n"), ft_atoi("lkfjsldkf34234234"));
    printf(("------------------------------\n"));
    printf(("test3: "));
    printf(("2147483648\n"));
    printf(("function call: "));
-   printf(("%d\n"), ft_atoi("2147483648"));
+   printf(("%lld\n"), ft_atoi("2147483648"));
    printf(("------------------------------\n"));
    printf(("test4: "));
    printf(("-2147483649\n"));
    printf(("function call: "));
-   printf(("%d\n"), ft_atoi("-2147483649"));
+   printf(("%lld\n"), ft_atoi("-2147483649"));
    printf(("------------------------------\n"));
    printf(("test5: "));
    printf(("-\\t\\r\\f214748364\n"));
    printf(("function call: "));
-   printf(("%d\n"), ft_atoi("-\t\r\f214748364"));
+   printf(("%lld\n"), ft_atoi("-\t\r\f214748364"));
    printf(("------------------------------\n"));
    printf(("test6: "));
    printf(("-2147483\n"));
    printf(("function call: "));
-   printf(("%d\n"), ft_atoi("-2147483"));
+   printf(("%lld\n"), ft_atoi("-2147483"));
    printf(("------------------------------\n"));
    printf(("test7: "));
    printf(("-2147483\n"));
    printf(("function call: "));
-   printf(("%d\n"), ft_atoi("-2147483"));
+   printf(("%lld\n"), ft_atoi("-2147483"));
+   printf(("------------------------------\n"));
    printf(("test8: "));
    printf(("-2147483648\n"));
    printf(("function call: "));
-   printf(("%d\n"), ft_atoi("-2147483648"));
-   } */
+   printf(("%lld\n"), ft_atoi("-2147483648"));
+   printf(("------------------------------\n"));
+   printf(("test9: "));
+   printf(("-8888888888888888\n"));
+   printf(("function call: "));
+   printf(("%lld\n"), ft_atoi("-8888888888888888"));
+   printf(("------------------------------\n"));
+   printf(("test9: "));
+   printf(("8888888888888888\n"));
+   printf(("function call: "));
+   printf(("%lld\n"), ft_atoi("8888888888888888"));
+   }*/
