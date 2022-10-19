@@ -3,39 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:25:13 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/08/18 09:38:05 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:24:17 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* 
-https://www.gnu.org/software/bash/manual/bash.html#Bourne-Shell-Builtins
-*/
-
-static int	ft_strnum(char *str)
+static	int	ft_strnum(char *str)
 {
 	int	i;
+	int	len;
 
+	len = ft_strlen(str);
 	if (!str)
 		return (g_vars->status);
 	i = -1;
 	while (str[++i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) || len > 19 || (len > 1 && ft_atoi(str) == 0))
 		{
 			ft_putstr_fd("exit: ", 2);
 			ft_putstr_fd(str, 2);
 			ft_putstr_fd(": numeric argument required.\n", 2);
-			return (2);
+			return (255);
 		}
 	}
+	ft_putstr_fd("exit\n", 1);
 	return (ft_atoi(str) % 256);
 }
 
+/** 
+	https://www.gnu.org/software/bash/manual/bash.html#Bourne-Shell-Builtins
+	@return 255 if no numeric value provided, or 255 if integer overflow
+	else (value % 256) is retuned 
+**/
 int	ft_exit(t_cmd *cmd)
 {
 	int	status;
@@ -51,6 +55,5 @@ int	ft_exit(t_cmd *cmd)
 	reset_terminal(g_vars);
 	ft_free_env(g_vars->env);
 	free(g_vars);
-	ft_putstr_fd("exit\n", 1);
 	exit(status);
 }
