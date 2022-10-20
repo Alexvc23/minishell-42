@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 16:37:11 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:52:42 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-# define MINISHELL_H
-# define CD_ABSOLUTE 1
-# define CD_OLD 2
-# define CD_HOME_AND_PATH 3
-# define CD_HOME 4 
-# define CD_CURREN_AND_PATH 5
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4096
-# endif
+#define MINISHELL_H
+#define CD_ABSOLUTE 1
+#define CD_OLD 2
+#define CD_HOME_AND_PATH 3
+#define CD_HOME 4 
+#define CD_CURREN_AND_PATH 5
+#define ERR_SIG 7
 
 /* readline */
 # include <stdio.h>
@@ -68,6 +66,7 @@ typedef struct s_heredoc
 {
 	int		i;
 	int		is_open;
+	pid_t	pid;
 	char	**heredoc;
 	char	*temp;
 	char	*path;
@@ -108,6 +107,7 @@ typedef struct s_shell {
 	char			*entry;
 	int				pid_count;
 	int				*pids;
+	pid_t				h_pid;
 	t_env			*env;
 }	t_shell;
 
@@ -133,16 +133,17 @@ typedef struct s_cmd {
 //
 
 /* parsing */
-t_env		*ft_set_env(char **argv);
-char		*ft_heredoc(char **end, t_cmd *stru, char *final_line);
-t_cmd		*ft_parse_cmd(char *line);
-void		ft_create_tokens(char *cmd_b, t_cmd *cmd);
-int			ft_redirec_output(char *cmd, t_cmd *stru, char *path, int mode);
-int			ft_redirec_input(char *cmd, t_cmd *stru, char *notVar, int mode);
-char		**ft_conv_args(char *b_cmd);
-char		*ft_own_strjoin(char *s1, char *s2);
-char		*ft_with_var(char *brut, char *tempStart, char *tempEnd, int i);
-void		ft_cut_re(int *mode, char **path, int *i, char *cmd);
+t_env	*ft_set_env(char **argv);
+t_cmd	*ft_parse_cmd(char *line);
+void	ft_create_tokens(char *cmd_b, t_cmd *cmd);
+int		ft_redirec_output(char *cmd, t_cmd *stru, char *path, int mode);
+int		ft_redirec_input(char *cmd, t_cmd *stru, char *notVar, int mode);
+char	**ft_conv_args(char *b_cmd);
+char	*ft_own_strjoin(char *s1, char *s2);
+char	*ft_with_var(char *brut, char *tempStart, char *tempEnd, int i);
+void	ft_cut_re(int *mode, char **path, int *i, char *cmd);
+char	*ft_heredoc(char **end, t_cmd *stru, char *final_line);
+int		wait_heredoc(char **end, t_cmd *stru);
 
 /* parsing tools*/
 int			ft_doublequotes(char *str, int index);
@@ -193,27 +194,28 @@ char		**ft_env_to_key_array(t_env **env);
 int			ft_is_valid_key(char *key);
 
 // tools
-void		ft_add_node_back(t_env **head, t_env *new);
-t_env		*ft_new_node(char *key, char *value);
-void		ft_replase_nv(t_env **env, char *key, char *value);
-int			ft_size_list(t_env *head);
-int			ft_size_list2(t_cmd *cmd);
-t_env		*ft_last_node(t_env *head);
-char		*ft_get_node_value(t_env **head, char *key);
-void		ft_update_env(t_env **env, char *key, char *value);
-int			ft_strcmp2(char *s, char *s1);
-int			ft_charcnt(char *str, char c);
-void		ft_free_cmd(t_cmd *cmd);
-char		*ft_env_join(char *key, char *value);
-char		**ft_env_to_array(t_env **env);
-char		*ft_find_path(char **env);
-char		*ft_get_cmd(char *v_path, char *cmd);
-int			ft_is_builtin(t_cmd *cmd);
-void		ft_free_env(t_env *env);
-int			ft_strequ(char *s1, char *s2);
-void		hide_sig(int sig);
-int			ft_increase_shlvl(t_env	*env);
-t_heredoc	*inicialize_heredoc(void);
+void	ft_add_node_back(t_env **head, t_env *new);
+t_env	*ft_new_node(char *key, char *value);
+void	ft_replase_nv(t_env **env, char *key, char *value);
+int		ft_size_list(t_env *head);
+int		ft_size_list2(t_cmd *cmd);
+t_env	*ft_last_node(t_env *head);
+char	*ft_get_node_value(t_env **head, char *key);
+void	ft_update_env(t_env **env, char *key, char *value);
+int		ft_strcmp2(char *s, char *s1);
+int		ft_charcnt(char *str, char c);
+void	ft_free_cmd(t_cmd *cmd);
+char	*ft_env_join(char *key, char *value);
+char	**ft_env_to_array(t_env **env);
+char	*ft_find_path(char **env);
+char	*ft_get_cmd(char *v_path, char *cmd);
+int		ft_is_builtin(t_cmd *cmd);
+void	ft_free_env(t_env *env);
+int		ft_strequ(char *s1, char *s2);
+void	hide_sig(int sig);
+int		ft_increase_shlvl(t_env	*env);
+t_heredoc *inicialize_heredoc(void);
+int		ft_counter(t_cmd	*cmd);
 
 // EXECUTION
 void		exec(t_cmd	*cmd);

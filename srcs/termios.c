@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termios.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:05:04 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 19:30:13 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:55:31 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,20 @@ stablishing cannocal input and enabling sign handling
 */
 void	ft_termios(void)
 {
-	int	result[2];
+	struct termios	attrs;
 
-	result[0] = tcgetattr(0, &g_vars->term_save);
-	result[1] = tcgetattr(0, &g_vars->term_new);
+	int	result[2];
+	result[0] = tcgetattr(STDIN_FILENO, &g_vars->term_save);
+	result[1] = tcgetattr(STDIN_FILENO, &attrs);
 	if (result[0] || result[1])
 		perror("tcsetattr\n");
-	g_vars->term_new.c_lflag = (ECHO | ICANON | ISIG);
-	if (tcsetattr(0, 0, &g_vars->term_new))
+	attrs.c_lflag = (ECHO | ICANON | ISIG);
+	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &attrs))
 		perror("tcsetattr\n");
 }
 
 /* restablished default termios attributes */
 void	reset_terminal(t_shell *t)
 {
-	tcsetattr(0, 0, &t->term_save);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &t->term_save);
 }

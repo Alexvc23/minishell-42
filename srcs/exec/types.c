@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:54:48 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 18:32:05 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:56:16 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ static void	exec_cmd(t_cmd *cmd, t_env **env)
 	path_cmd = ft_get_cmd(ft_find_path(arr_env), cmd->argv[0]);
 	execve(path_cmd, cmd->argv, arr_env);
 	dup2(STDERR_FILENO, STDOUT_FILENO);
-	if (errno != 14 || (ft_strchr(cmd->argv[0], '/')))
-		printf("%s: %s.\n", cmd->argv[0], strerror(errno));
-	else
+	if (errno == 2)
 		printf("Command '%s' not found.\n", cmd->argv[0]);
+	else
+		printf("%s: %s.\n", cmd->argv[0], strerror(errno));
 	dup2(g_vars->stdout, STDOUT_FILENO);
 	free(path_cmd);
 	ft_free((void **)arr_env);

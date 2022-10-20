@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:26:23 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 18:22:20 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:55:14 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_redirec_output(char *cmd, t_cmd *stru, char *path, int mode)
 			{
 				ft_putstr_fd(path, 2);
 				ft_putstr_fd(" : Cannot access file or directory\n", 2);
-				return (-1);
+				 exit(1);
 			}
 		}
 		i++;
@@ -82,7 +82,7 @@ int	ft_normal_file(int *mode, char **path, int *is_open, char **temp)
 	{
 		ft_putstr_fd(*path, 2);
 		ft_putstr_fd(" : Cannot access file or directory\n", 2);
-		return (-1);
+		exit(1);
 	}
 	if (*temp)
 		free(*temp);
@@ -96,24 +96,11 @@ stdinput, (whether heredoc or normal) file inicializating the t_cmd
 structure, returns append mode number or a negatif number representing
 error
 */
-int	ft_end_rre(char **heredoc, t_cmd *stru, char *path, int mode)
+static int	ft_end_rre(t_cmd *stru, char *path, int mode)
 {
-	char	*temp;
-
-	temp = NULL;
-	if (heredoc && !path)
-	{
-		temp = ft_heredoc(heredoc, stru, NULL);
-		if (!temp)
-			return (-2);
-		stru->in = temp;
-	}
-	else
-	{
-		stru->in = path;
-		stru->append = mode;
-		stru->heredoc = 0;
-	}
+	stru->in = path;
+	stru->append = mode;
+	stru->heredoc = 0;
 	return (mode);
 }
 
@@ -142,21 +129,21 @@ int	ft_redirec_input(char *cmd, t_cmd *stru, char *notVar, int mode)
 
 	h = inicialize_heredoc();
 	result = mode;
-	while (cmd[++h->i])
+	while (cmd[++h->i] && result != ERR_SIG)
 	{
 		if (h->is_open > 0)
 			close(h->is_open);
 		if (cmd[h->i] == '<' && ft_var_quotes(cmd, h->i, 0) == 0)
 		{
 			if (ft_is_heredoc(notVar, &h->heredoc, &h->i, &h->path) == 1)
-				result = ft_end_rre(h->heredoc, stru, h->path, mode);
+				result = wait_heredoc(h->heredoc, stru);
 			else
 			{
 				h->temp = ft_get_afterre(cmd, h->i, 0);
 				if (ft_normal_file(&mode, &h->path, &h->is_open, &h->temp)
 					== -1)
 					return (-1);
-				result = ft_end_rre(h->heredoc, stru, h->path, mode);
+				result = ft_end_rre(stru, h->path, mode);
 			}
 		}
 	}

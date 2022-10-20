@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:12:13 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 16:10:32 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:54:50 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 /* 
 Checks the following aspects:
@@ -20,9 +21,14 @@ Checks the following aspects:
     character alphanumeric character
 */
 
+<<<<<<< HEAD
 static void	ft_manipulate(char *line, int err)
+=======
+static void ft_manipulate(char *line, int err)
+>>>>>>> test
 {
 	t_cmd	*cmd;
+	int		i;
 
 	if (!err)
 	{

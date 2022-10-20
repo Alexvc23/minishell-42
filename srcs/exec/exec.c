@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:14:10 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 19:29:47 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:54:16 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,6 @@ static void	exec_wait(t_cmd *cmd, unsigned int cmdsize)
 	free(g_vars->pids);
 }
 
-int	ft_counter(t_cmd	*cmd)
-{
-	int				i;
-
-	i = -1;
-	while (cmd->argv[++i] && cmd->argv[i + 1])
-		;
-	return (i);
-}
 
 /* 
 --> Sets pids array length  which will be used to store each process id

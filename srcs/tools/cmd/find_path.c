@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 18:33:13 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/18 16:11:05 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:55:53 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ char	*ft_get_cmd(char *v_path, char *cmd)
 		free(tmp);
 		free(new_cmd);
 	}
+	if (!v_path || access(cmd, 0) == 0)
+		return (cmd);
 	return (cmd);
 }
