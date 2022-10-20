@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:12:13 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/20 18:54:50 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/10/20 19:04:16 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@ Checks the following aspects:
     character alphanumeric character
 */
 
-<<<<<<< HEAD
-static void	ft_manipulate(char *line, int err)
-=======
 static void ft_manipulate(char *line, int err)
->>>>>>> test
 {
 	t_cmd	*cmd;
 	int		i;
