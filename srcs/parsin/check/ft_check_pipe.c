@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:12:13 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/20 19:04:16 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/10/20 19:05:30 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ Checks the following aspects:
 static void ft_manipulate(char *line, int err)
 {
 	t_cmd	*cmd;
-	int		i;
 
 	if (!err)
 	{
