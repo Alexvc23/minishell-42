@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/20 18:55:24 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/10/24 14:00:02 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int	main(int argc, char **argv, char **env)
 	g_vars->stderr = dup(STDERR_FILENO);
 	g_vars->h_pid = 0;
 	g_vars->env = ft_set_env(env);
-	ft_update_env(&g_vars->env, ft_strdup("SHLVL"),
-		ft_itoa(ft_increase_shlvl(g_vars->env)));
+	// ft_update_env(&g_vars->env, ft_strdup("SHLVL"),
+	// 	ft_itoa(ft_increase_shlvl(g_vars->env)));
 	while (1)
 		ft_prompt();
 	
