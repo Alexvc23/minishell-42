@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 15:31:07 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:55:24 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	clear_exit(void)
 {
 	reset_terminal(g_vars);
 	ft_free_env(g_vars->env);
+	ft_putstr_fd("exit", 1);
 	free(g_vars);
-	ft_putstr_fd("\n", 1);
 	exit(0);
 }
 /* 
@@ -29,26 +29,19 @@ SIGQUIT will do nothing just refresh view
 
 void	handler(int status)
 {
+	if (g_vars->pid_count > 0)
+	{
+		hide_sig(status);
+		return ;
+	}
 	if (status == SIGINT)
 	{
-		if(!ft_strcmp2(rl_prompt, "\033[1m\033[35mMinishell_> \033[0m"))
-		{
 			rl_redisplay();
 			rl_replace_line("", 0);
 			write(1, "\n", 1);
-		}
 	}
 	else if (status == SIGQUIT)
-	{
-		if (g_vars->pid_count > 0)
-		{
-			hide_sig();
-			return ;
-		}
-		if (rl_end && !ft_strcmp2(rl_prompt, 
-		"\033[1m\033[35mMinishell_> \033[0m"))
-			clear_exit();
-	}
+	{}
 	rl_on_new_line();
 	rl_redisplay();
 }
@@ -58,10 +51,13 @@ void	handler(int status)
    line to history, then we try to execute the command */
 void	ft_prompt(void)
 {
-	char 	*entry;
+	char	*entry;
 	int		i;
 
 	i = 0;
+	ft_termios();
+	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
 	entry = readline("\033[1m\033[35mMinishell_> \033[0m");
 	if (!entry)
 		clear_exit();
@@ -84,11 +80,12 @@ int	main(int argc, char **argv, char **env)
 	g_vars->stdin = dup(STDIN_FILENO);
 	g_vars->stdout = dup(STDOUT_FILENO);
 	g_vars->stderr = dup(STDERR_FILENO);
+	g_vars->h_pid = 0;
 	g_vars->env = ft_set_env(env);
-	ft_termios();
-	signal(SIGINT, handler);
-	signal(SIGQUIT, handler);
+	ft_update_env(&g_vars->env, ft_strdup("SHLVL"),
+		ft_itoa(ft_increase_shlvl(g_vars->env)));
 	while (1)
 		ft_prompt();
+	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:39:20 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/13 13:24:24 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/10/12 16:59:15 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	ft_cut_var(int i, char **result, char **tempEnd)
 /* 
 ->checks if we have to expand variables in line passed, if the variable
 is exported in the enviroment variables, we replace the variable by
-is value in the enviroment structure.
--> if we passed the variable '$?', it replace it with the last comand
+its value in the enviroment structure.
+-> if we passed the variable '$?', it replace it with the last command
 return status number (0 for success >0 for error)
  */
 char	*ft_with_var(char *brut, char *tempStart, char *tempEnd, int i)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:54:48 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/16 11:49:17 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:56:16 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	exec_builtin(t_cmd *cmd, t_env **env)
 {
-	// if (cmd->argv[0][0] == 1)
-	// 	return (ft_null());
 	if (!ft_strcmp2(cmd->argv[0], "exit"))
 		return (ft_exit(cmd));
 	else if (!ft_strcmp2(cmd->argv[0], "echo"))
@@ -23,7 +21,7 @@ static int	exec_builtin(t_cmd *cmd, t_env **env)
 	else if (!ft_strcmp2(cmd->argv[0], "export"))
 		return (ft_export(cmd->argv, env));
 	else if (!ft_strcmp2(cmd->argv[0], "unset"))
-	 	return (ft_unset(cmd->argv, env));
+		return (ft_unset(cmd->argv, env));
 	else if (!ft_strcmp2(cmd->argv[0], "env"))
 		return (ft_env(env));
 	else if (!ft_strcmp2(cmd->argv[0], "pwd"))
@@ -33,7 +31,7 @@ static int	exec_builtin(t_cmd *cmd, t_env **env)
 	return (1);
 }
 
-/* 
+/*
 --> This function will be used as  complement for all execution types 
 	(heredoc, single and pipe) and it will be executed as a child process 
 
@@ -64,10 +62,10 @@ static void	exec_cmd(t_cmd *cmd, t_env **env)
 	path_cmd = ft_get_cmd(ft_find_path(arr_env), cmd->argv[0]);
 	execve(path_cmd, cmd->argv, arr_env);
 	dup2(STDERR_FILENO, STDOUT_FILENO);
-	if (errno != 14 || (ft_strchr(cmd->argv[0], '/')))
-		printf("%s: %s.\n", cmd->argv[0], strerror(errno));
-	else
+	if (errno == 2)
 		printf("Command '%s' not found.\n", cmd->argv[0]);
+	else
+		printf("%s: %s.\n", cmd->argv[0], strerror(errno));
 	dup2(g_vars->stdout, STDOUT_FILENO);
 	free(path_cmd);
 	ft_free((void **)arr_env);
@@ -80,6 +78,7 @@ static void	exec_cmd(t_cmd *cmd, t_env **env)
 if cmd is a built-in, it will be executed by the parent process to have
 the changes permanently reflected 
 */
+
 pid_t	exec_single(t_cmd *cmd, t_env **env, int id)
 {
 	pid_t	pid;
@@ -150,7 +149,7 @@ pid_t	exec_pipe(t_cmd *cmd, t_env **env)
 	string, then a pipe is created and heredoc buffer is stored in file pipe [1] 
 	with the help of write
 */
-pid_t exec_heredoc(t_cmd *cmd)
+pid_t	exec_heredoc(t_cmd *cmd)
 {
 	pid_t	pid;
 	int		file[2];

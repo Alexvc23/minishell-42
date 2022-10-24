@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_env.c                                         :+:      :+:    :+:   */
+/*   ft_increase_shlvl.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/09 14:21:59 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 18:16:20 by fdevigne         ###   ########.fr       */
+/*   Created: 2022/08/16 19:48:26 by fdevigne          #+#    #+#             */
+/*   Updated: 2022/10/20 19:09:29 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free_env(t_env *env)
+int	ft_counter(t_cmd	*cmd)
 {
-	t_env	*tmp;
+	int				i;
 
-	while (env)
-	{
-		tmp = env;
+	i = -1;
+	while (cmd->argv[++i] && cmd->argv[i + 1])
+		;
+	return (i);
+}
+int	ft_increase_shlvl(t_env	*env)
+{
+	while (env->next && ft_strcmp2(env->key, "SHLVL"))
 		env = env->next;
-		free(tmp->value);
-		free(tmp->key);
-		free(tmp);
-	}
+	if (!ft_strcmp2(env->key, "SHLVL"))
+		return (ft_atoi(env->value) + 1);
+	return (1);
 }

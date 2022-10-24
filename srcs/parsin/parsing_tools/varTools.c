@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   varTools.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 15:13:11 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/13 13:18:12 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:26:09 by fdevigne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ and variable, with substring after variable
 example join("this is 42 school $expanded", "the best")
 result: "this is 42 school $expanded the best"
  */
-void	ft_join_temp_end(char **tempEnd, int *i, char **result, char **tempResult)
+void	ft_join_temp_end(char **tempEnd, int *i, char **result,
+			char **tempResult)
 {
 	free(*result);
 	*i = ft_strlen(*tempResult) - 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:26:23 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 17:02:29 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:55:14 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_redirec_output(char *cmd, t_cmd *stru, char *path, int mode)
 			{
 				ft_putstr_fd(path, 2);
 				ft_putstr_fd(" : Cannot access file or directory\n", 2);
-				return (-1);
+				 exit(1);
 			}
 		}
 		i++;
@@ -51,10 +51,13 @@ Checks whether we are using heredoc mode, if yes, it stores the
 the string representating the end of file in heredoc variable, which is 
 passed as reference
 */
-int	ft_is_heredoc(char *cmd, char ***heredoc, int *i, char *path)
+int	ft_is_heredoc(char *cmd, char ***heredoc, int *i, char **path)
 {
-	if (path)
-		free(path);
+	if (*path)
+	{
+		free(*path);
+		*path = NULL;
+	}
 	if (cmd[*i + 1] && cmd[*i + 1] == '<')
 	{
 		*heredoc = ft_alloc_delimiter(*heredoc, ft_get_afterre(cmd, *i + 1, 1));
@@ -79,7 +82,7 @@ int	ft_normal_file(int *mode, char **path, int *is_open, char **temp)
 	{
 		ft_putstr_fd(*path, 2);
 		ft_putstr_fd(" : Cannot access file or directory\n", 2);
-		return (-1);
+		exit(1);
 	}
 	if (*temp)
 		free(*temp);
@@ -93,21 +96,11 @@ stdinput, (whether heredoc or normal) file inicializating the t_cmd
 structure, returns append mode number or a negatif number representing
 error
 */
-int	ft_end_rre(char **heredoc, t_cmd *stru, char *path, int mode)
+static int	ft_end_rre(t_cmd *stru, char *path, int mode)
 {
-	char	*temp;
-
-	temp = NULL;
-	if (heredoc)
-	{
-		temp = ft_heredoc(heredoc, stru, NULL);
-		if (!temp)
-			return (-2);
-		stru->in = temp;
-	}
-	else
-		stru->in = path;
+	stru->in = path;
 	stru->append = mode;
+	stru->heredoc = 0;
 	return (mode);
 }
 
@@ -123,37 +116,37 @@ and path in path variable
 -> if is_open file descriptor is open we close it, as we did it just for 
 testing file existance with function ft_is_normal_file 
 -> finally  once ends the loop itiration ft_end_rre function will determine 
-what the descriptor to user:
+the descriptor to use:
 1) if something in heredoc, it will use ft_is_heredoc setting heredoc as 
 stdinput.
-2) else it will user path as file descriptor, if there is nothing in path 
+2) else it will use path as file descriptor, if there is nothing in path 
     stdin will be set to null
 */
 int	ft_redirec_input(char *cmd, t_cmd *stru, char *notVar, int mode)
 {
-	int		i;
-	int		is_open;
-	char	**heredoc;
-	char	*temp;
-	char	*path;
+	t_heredoc	*h;
+	int			result;
 
-	path = NULL;
-	i = -1;
-	heredoc = NULL;
-	temp = NULL;
-	is_open = -1;
-	while (cmd[++i])
+	h = inicialize_heredoc();
+	result = mode;
+	while (cmd[++h->i] && result != ERR_SIG)
 	{
-		if (is_open > 0)
-			close(is_open);
-		if (cmd[i] == '<' && ft_var_quotes(cmd, i, 0) == 0)
+		if (h->is_open > 0)
+			close(h->is_open);
+		if (cmd[h->i] == '<' && ft_var_quotes(cmd, h->i, 0) == 0)
 		{
-			if (ft_is_heredoc(notVar, &heredoc, &i, path) == 1)
-				continue ;
-			temp = ft_get_afterre(cmd, i, 0);
-			if (ft_normal_file(&mode, &path, &is_open, &temp) == -1)
-				return (-1);
+			if (ft_is_heredoc(notVar, &h->heredoc, &h->i, &h->path) == 1)
+				result = wait_heredoc(h->heredoc, stru);
+			else
+			{
+				h->temp = ft_get_afterre(cmd, h->i, 0);
+				if (ft_normal_file(&mode, &h->path, &h->is_open, &h->temp)
+					== -1)
+					return (-1);
+				result = ft_end_rre(stru, h->path, mode);
+			}
 		}
 	}
-	return (ft_end_rre(heredoc, stru, path, mode));
+	free(h);
+	return (result);
 }

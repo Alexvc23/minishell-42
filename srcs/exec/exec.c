@@ -1,11 +1,12 @@
-/* ************************************************************************** */ /*                                                                            */
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec.c                                          :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/29 08:16:52 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/08/04 16:14:10 by jvalenci         ###   ########.fr       */
+/*   Created: 2022/08/04 16:14:10 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/10/20 18:54:16 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +78,7 @@ static void	exec_wait(t_cmd *cmd, unsigned int cmdsize)
 	free(g_vars->pids);
 }
 
+
 /* 
 --> Sets pids array length  which will be used to store each process id
 	and use it later on 
@@ -89,6 +91,7 @@ static void	exec_wait(t_cmd *cmd, unsigned int cmdsize)
 
 --> free resources, reset std-in-out default fds
 */
+
 void	exec(t_cmd	*cmd)
 {
 	int				i;
@@ -102,15 +105,13 @@ void	exec(t_cmd	*cmd)
 	g_vars->pids = calloc(cmdsize, sizeof(int));
 	if (!cmd || !cmdsize || !g_vars->pids)
 		return ;
-	while (++i < cmdsize)	
+	while (++i < cmdsize)
 	{
 		g_vars->pids[i] = exec_type(cmd, &g_vars->env, i);
 		if (cmd->next)
 			cmd = cmd->next;
 	}
-	i = -1;
-	while (cmd->argv[++i] && cmd->argv[i + 1])
-		;
+	i = ft_counter(cmd);
 	ft_update_env(&g_vars->env, ft_strdup("_"), ft_strdup(cmd->argv[i]));
 	exec_wait(backup, cmdsize);
 	ft_free_cmd(backup);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 18:33:13 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 14:29:35 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:55:53 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ char	*ft_get_cmd(char *v_path, char *cmd)
 	char	**path;
 
 	i = -1;
-	if (access(cmd, 0) == 0)
+	if (!cmd || !cmd[0])
+		exit(0);
+	if (!v_path || (ft_strchr(cmd, '/') && !access(cmd, 0)))
 		return (cmd);
 	path = ft_split(v_path, ':');
 	while (path && path[++i])
@@ -54,5 +56,7 @@ char	*ft_get_cmd(char *v_path, char *cmd)
 		free(tmp);
 		free(new_cmd);
 	}
-	return (NULL);
+	if (!v_path || access(cmd, 0) == 0)
+		return (cmd);
+	return (cmd);
 }

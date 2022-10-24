@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   promp.c                                            :+:      :+:    :+:   */
+/*   heredoc_tools.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/16 15:03:20 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 18:19:25 by fdevigne         ###   ########.fr       */
+/*   Created: 2022/08/17 10:53:12 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/10/20 18:55:00 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	hide_sig(int sig)
+t_heredoc	*inicialize_heredoc(void)
 {
-	int	fd[2];
+	t_heredoc	*temp;
 
-	pipe(fd);
-	if (sig == SIGQUIT)
-		write(1, "Quit: 3\n", 8);
-	else if (sig == SIGINT)
-		write(1, "\n", 1);
-	dup2(fd[0], STDOUT_FILENO);
-	close(fd[0]);
-	close(fd[1]);
+	temp = malloc(sizeof(t_heredoc));
+	if (!temp)
+		return (NULL);
+	temp->path = NULL;
+	temp->i = -1;
+	temp->heredoc = NULL;
+	temp->temp = NULL;
+	temp->is_open = -1;
+	temp->pid = 0;
+	return (temp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_tools.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 14:22:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 15:56:41 by fdevigne         ###   ########.fr       */
+/*   Created: 2022/08/18 09:11:41 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/08/18 09:11:44 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,13 @@ char	**ft_alloc_delimiter(char **result, char *value)
 	char	**final;
 	int		i;
 
+	(void)result;
 	i = 0;
 	final = (char **)malloc(sizeof(char *) * 2);
 	if (!final)
 		return (NULL);
 	final[i] = value;
 	final[i + 1] = NULL;
-	if (result)
-		ft_free((void **)result);
 	return (final);
 }
 
@@ -37,16 +36,10 @@ char	**ft_alloc_delimiter(char **result, char *value)
 if no space between, joins a space at the end
 -> return the fist indext of the last word in the string 
 */
-void	ft_get_index_last(char *new, int *i, char **temp, char **start)
+static void	ft_get_index_last(char *new, int *i)
 {
 	if (new[*i + 1] && (new[*i + 1] == '>' || new[*i + 1] == '<'))
 		(*i)++;
-	if (new[*i + 1] && new[*i + 1] != ' ')
-	{
-		*temp = ft_strjoin(*start, " ");
-		free(*start);
-		*start = *temp;
-	}
 	while (new[*i] && (new[*i] == '>' || new[*i] == '<' || new[*i] == ' '))
 		(*i)++;
 	while (new[*i] && (new[*i] != ' ' || ft_var_quotes(new, *i, 0) == 1))
@@ -63,9 +56,8 @@ char	*ft_conv_redir(char *cmd)
 {
 	int		i;
 	char	*new;
-	char	*start;
 	char	*end;
-	char	*temp;
+	char	*start;
 
 	i = 0;
 	new = ft_strdup(cmd);
@@ -74,13 +66,13 @@ char	*ft_conv_redir(char *cmd)
 		if ((new[i] == '>' || new[i] == '<') && ft_var_quotes(cmd, i, 0) == 0)
 		{
 			start = ft_substr(new, 0, i);
-			ft_get_index_last(new, &i, &temp, &start);
+			ft_get_index_last(new, &i);
 			end = ft_substr(new, i, ft_strlen(new + i));
 			free(new);
 			new = ft_strjoin(start, end);
-			free(start);
 			free(end);
-			i = 0;
+			free(start);
+			i = -1;
 		}
 		i++;
 	}
@@ -98,14 +90,15 @@ char	*ft_get_afterre(char *cmd, int index, int heredoc)
 	int	i;
 	int	start;
 
-	start = index + 1 + heredoc;
+	start = index + heredoc;
 	if (!cmd[start])
 		return (NULL);
-	while (cmd[start] == ' ')
+	while (cmd[start] == ' ' || cmd[start] == '<'
+		|| cmd[start] == '>')
 		start++;
 	i = start;
 	while ((cmd[i] != ' ' || ft_var_quotes(cmd, i, 0) == 1)
-		&& cmd[i] != '\0')
+		&& cmd[i] != '\0' && cmd[i] != '<' && cmd[i] != '>')
 		i++;
 	return (ft_substr(cmd, start, i - start));
 }

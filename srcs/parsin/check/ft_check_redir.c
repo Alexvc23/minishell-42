@@ -6,7 +6,7 @@
 /*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 10:57:51 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/07/03 12:07:15 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/08/18 11:43:11 by jvalenci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_check_redir(char *line)
 	}
 	if (err == 1)
 		printf("%s\n", "Minishell: syntax error unexpected \
-				redirection operator");
+redirection operator");
 	else if (err == 2)
 		printf("%s\n", "Minishell: syntax error");
 	else

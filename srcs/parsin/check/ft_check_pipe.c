@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 09:35:30 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 14:31:20 by fdevigne         ###   ########.fr       */
+/*   Created: 2022/08/18 09:12:13 by jvalenci          #+#    #+#             */
+/*   Updated: 2022/10/20 19:05:30 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 /* 
 Checks the following aspects:
@@ -19,34 +20,24 @@ Checks the following aspects:
 --> Prints error if token '|' is followed by '< >|' and not by any other 
     character alphanumeric character
 */
-static void	ft_manipulate(char *line, int err)
+
+static void ft_manipulate(char *line, int err)
 {
 	t_cmd	*cmd;
 
 	if (!err)
 	{
 		cmd = ft_parse_cmd(line);
-		free(line);
-		exec(cmd);
-/* 		printf("Number of elements: %i\n", ft_size_list2(cmd));
-		printf("---------------\n");
-		while (cmd)
-		{
-			int i = -1;
-			while (cmd->argv[i++])
-				printf("cmd arg[%d]: %s\n", i, cmd->argv[i]);
-			printf("append mode: %d\n", cmd->append);
-			printf("heredoc: %d\n", cmd->heredoc);
-			printf("input file: %s\n", cmd->in);
-			printf("output file: %s\n", cmd->out);
-			printf("---------------\n");
-			cmd = cmd->next;
-		} */
+		if (!cmd)
+			printf("%s\n", "Memory error");
+		else
+			exec(cmd);
 	}
 	else if (err == 1)
 		printf("%s\n", "Syntax error: unexpected token ||");
 	else if (err == 2)
 		printf("%s\n", "Syntax error: unexpected token near '|'");
+	free(line);
 }
 
 /* 
