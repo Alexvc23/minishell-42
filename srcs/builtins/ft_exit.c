@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:25:13 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/10/20 18:53:44 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/10/24 21:11:20 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ static	int	ft_strnum(char *str)
 
 	len = ft_strlen(str);
 	if (!str)
+	{
+		ft_putstr_fd("exit\n", 1);
 		return (g_vars->status);
+	}
 	i = -1;
 	while (str[++i])
 	{
