@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:14:10 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/20 18:54:16 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/10/25 15:15:48 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static pid_t	exec_type(t_cmd *cmd, t_env **env, int id)
 {
 	int	pid;
 
-	if (cmd->heredoc)
-		pid = exec_heredoc(cmd);
+	// if (cmd->heredoc)
+	// 	pid = exec_heredoc(cmd);
 	if (!cmd->next)
 	{
 		dup2(g_vars->stdout, STDOUT_FILENO);
@@ -69,10 +69,7 @@ static void	exec_wait(t_cmd *cmd, unsigned int cmdsize)
 		if (WIFEXITED(status))
 			g_vars->status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-		{
-			printf("%d\n", WTERMSIG(status));
 			g_vars->status = 128 + WTERMSIG(status);
-		}
 	}
 	g_vars->pid_count = 0;
 	free(g_vars->pids);
@@ -108,6 +105,8 @@ void	exec(t_cmd	*cmd)
 	while (++i < cmdsize)
 	{
 		g_vars->pids[i] = exec_type(cmd, &g_vars->env, i);
+		close(cmd->heredoc_file[0]);
+		close(cmd->heredoc_file[1]);
 		if (cmd->next)
 			cmd = cmd->next;
 	}

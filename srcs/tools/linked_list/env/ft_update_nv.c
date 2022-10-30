@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update_nv.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 12:04:02 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/13 16:01:19 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/10/24 20:47:39 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

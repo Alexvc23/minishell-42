@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_node_back.c                                    :+:      :+:    :+:   */
+/*   ft_add_node_back.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:47:50 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/05/30 14:55:04 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/10/24 20:45:23 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_add_node_back(t_env **head, t_env *new)
 	ptr = *head;
 	if (!new)
 		return ;
-	if (!*head)
+	if (!ptr->key)
 	{
 		*head = new;
 		return ;

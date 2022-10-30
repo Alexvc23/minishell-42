@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/20 18:52:42 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/10/25 14:43:42 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_shell {
 	int				stdout;
 	int				stderr;
 	int				status;
+	int				h_files[2];
 	struct termios	term_save;
 	struct termios	term_new;
 	char			*entry;
@@ -123,6 +124,7 @@ typedef struct s_cmd {
 	char			*in;
 	char			*out;
 	int				heredoc;
+	int				heredoc_file[2];
 	int				append;
 	char			**argv;
 	struct s_cmd	*next;

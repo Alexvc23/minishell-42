@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/20 18:55:08 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/10/25 15:13:03 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,42 +137,49 @@ char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 	return (final_line);
 }
 
-static void ft_heredoc_child(char **end, t_cmd *stru, int files[2])
+static void ft_heredoc_child(char **end, t_cmd *stru)
 {
 	char 	*final_line;
+	char	*tmp;
 
 	final_line = NULL;
 	final_line = ft_heredoc(end, stru, NULL);
-	write(files[1], final_line, ft_strlen(final_line));
+	tmp = ft_strjoin(final_line, "\0");
+	printf("%s\n", final_line);
+	write(stru->heredoc_file[0], tmp, ft_strlen(tmp));
+	close(stru->heredoc_file[0]);
+	close(stru->heredoc_file[1]);
 	if (final_line)
 		free(final_line);
+	if (tmp)
+		free(tmp);
+	exit(0);
 }
 
 pid_t ft_heredoc_fork(char **end, t_cmd *stru)
 {
 	pid_t	pid;
-	int		files[2];
 
 	dup2(g_vars->stdin, STDIN_FILENO);
-	if (pipe(files) < 0)
+	stru->heredoc = 1;
+	if (pipe(stru->heredoc_file) < 0)
 		return (-1);
+	printf("%d\n", stru->heredoc_file[0]);
 	pid = fork();
 	if (pid < 0)
 		return (-1);
 	if (pid)
-	{
-		dup2(files[0], STDIN_FILENO);
-		close(files[0]);
-		close(files[1]);
 		return (pid);
-	}
-	ft_heredoc_child(end, stru, files);
+	ft_heredoc_child(end, stru);
 	return(pid);
 }
 
 int wait_heredoc(char **end, t_cmd *stru)
 {
 	int status;
+	// char buffer[1024];
+	// int n = 0;
+
 	reset_terminal(g_vars);
 	// ft_termios();
 	signal(SIGINT, ft_heredoc_handler);
@@ -180,6 +187,10 @@ int wait_heredoc(char **end, t_cmd *stru)
 	if (g_vars->h_pid == 0)
 		exit(0);
 	waitpid(g_vars->h_pid, &status, 0);
+	// n = read(stru->heredoc_file[0], buffer, 1000);
+	// buffer[n] = '\0';
+	// printf("%s\n", buffer);
+	printf("%d\n", stru->heredoc_file[0]);
 	if (WIFEXITED(status))
 	{
 		g_vars->status = WEXITSTATUS(status);
@@ -188,6 +199,7 @@ int wait_heredoc(char **end, t_cmd *stru)
 	else if (WIFSIGNALED(status))
 	{
 		g_vars->status = 2;
+		printf("Signal\n");
 		return (7);
 	}
 	return (0);

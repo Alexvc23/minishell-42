@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/24 14:00:02 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/10/24 21:37:38 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
+
 	g_vars = malloc(1 * sizeof(t_shell));
+	if (!g_vars)
+		return (write(3, "Error allocating memory\n", 25));
 	g_vars->stdin = dup(STDIN_FILENO);
 	g_vars->stdout = dup(STDOUT_FILENO);
 	g_vars->stderr = dup(STDERR_FILENO);
