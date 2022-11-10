@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/24 20:47:55 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/10 11:37:08 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,20 @@ typedef struct s_env
 }	t_env;
 
 /* 
+linked list representing each cmd passed with its arguments if
+there are. Boolean checking heredoc mode, output file append mode,
+and input file or output file path if ther is one
+*/
+typedef struct s_cmd {
+	char			*in;
+	char			*out;
+	int				heredoc;
+	int				append;
+	char			**argv;
+	struct s_cmd	*next;
+}	t_cmd;
+
+/* 
 As minishell will create sub-processes, only global variables
 will be inherited by child processes, we need to have access to
 these variables to create our own environment
@@ -107,26 +121,14 @@ typedef struct s_shell {
 	char			*entry;
 	int				pid_count;
 	int				*pids;
-	pid_t				h_pid;
+	pid_t h_pid;
+	t_cmd			*cmd;
 	t_env			*env;
 }	t_shell;
 
 /* We make t_shell global variable */
 t_shell	*g_vars;
 
-/* 
-linked list representing each cmd passed with its arguments if
-there are. Boolean checking heredoc mode, output file append mode,
-and input file or output file path if ther is one
-*/
-typedef struct s_cmd {
-	char			*in;
-	char			*out;
-	int				heredoc;
-	int				append;
-	char			**argv;
-	struct s_cmd	*next;
-}	t_cmd;
 
 //
 // ─── FUNCTIONS ──────────────────────────────────────────────────────

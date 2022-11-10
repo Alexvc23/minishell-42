@@ -59,7 +59,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(AT)$(CC) $(RL_INC) -I$(INC) $(FLAGS) -c $< -o $@
 	$(AT)printf "$(CYAN) Creating ----> $(RESET)$(BOLD)$(WHITE) $@ $(GREEN)$(CENTER)$(CENTER) ( ✔ ) ️$(END)\n"
 
-$(EXEC) : $(OBJ)
+$(EXEC) : $(OBJ) $(INC)minishell.h Makefile
 	 $(AT)$(CC) $(OBJ) $(LIB) $(LIBFT)libft.a -o $@
 	$(AT)printf "$(BOLD) $(RED) Executable ----> $(RESET)$(BOLD)$(CYAN) $@ $(GREEN)$(CENTER) ( ✔ ) ️$(END)\n"
 

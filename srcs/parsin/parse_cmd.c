@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:06:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 17:25:57 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:47:03 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ void	ft_inicialize_cmd(t_cmd *cmd)
 */
 t_cmd	*ft_parse_cmd(char *line)
 {
-	t_cmd	*cmd;
-
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
+	g_vars->cmd = malloc(sizeof(t_cmd));
+	if (!g_vars->cmd)
 		return (NULL);
-	ft_inicialize_cmd(cmd);
-	ft_create_tokens(line, cmd);
-	return (cmd);
+	ft_inicialize_cmd(g_vars->cmd);
+	ft_create_tokens(line, g_vars->cmd);
+	return (g_vars->cmd);
 }

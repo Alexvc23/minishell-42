@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/24 20:47:31 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/10 11:53:05 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,9 @@ SIGQUIT will do nothing just refresh view
 
 void	handler(int status)
 {
-	if (g_vars->pid_count > 0)
-	{
-		hide_sig(status);
+	
+	if (ft_size_list2(g_vars->cmd) > 0)
 		return ;
-	}
 	if (status == SIGINT)
 	{
 			rl_redisplay();
@@ -58,7 +56,7 @@ void	ft_prompt(void)
 	ft_termios();
 	signal(SIGINT, handler);
 	signal(SIGQUIT, handler);
-	entry = readline("\033[1m\033[35mMinishell_> \033[0m");
+	entry = readline("Minishell_> ");
 	if (!entry)
 		clear_exit();
 	while (entry[i] && entry[i] == ' ')

@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/20 18:55:08 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/10 12:15:34 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 	i = 0;
 	while (end[i])
 	{
-		line = readline("\033[31mHEREDOC\033[0m> ");
+		line = readline("HEREDOC> ");
 		if (!line )
 			break ;
 		temp = ft_gro_quotes(end[i]);
