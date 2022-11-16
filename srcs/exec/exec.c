@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 16:14:10 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/11/10 10:14:38 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/16 19:01:14 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static pid_t	exec_type(t_cmd *cmd, t_env **env, int id)
 {
 	int	pid;
 
-	if (cmd->heredoc)
-		pid = exec_heredoc(cmd);
 	if (!cmd->next)
 	{
 		dup2(g_vars->stdout, STDOUT_FILENO);

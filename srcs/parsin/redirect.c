@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:26:23 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/20 18:55:14 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/15 08:30:57 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	ft_redirec_input(char *cmd, t_cmd *stru, char *notVar, int mode)
 		if (cmd[h->i] == '<' && ft_var_quotes(cmd, h->i, 0) == 0)
 		{
 			if (ft_is_heredoc(notVar, &h->heredoc, &h->i, &h->path) == 1)
-				result = wait_heredoc(h->heredoc, stru);
+				result = ft_heredoc_fork(h->heredoc, stru);
 			else
 			{
 				h->temp = ft_get_afterre(cmd, h->i, 0);

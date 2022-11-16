@@ -6,89 +6,11 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/11/10 12:15:34 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/16 19:00:47 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_heredoc_handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		if (g_vars->h_pid)
-			kill(g_vars->h_pid, 15);
-	}
-}
-
-/** 
-	@brief Do variable explantion if heredoc delimiter is not surrounded 
-	in single quotes 
-	1. if heredoc demiter is not quoted we search for variables in t_env
-	structure and we expand it in current line
-	2. else join current line with the previous one if any, storing it in final
-	3. free unnecessary variables
-	4. return final
-**/
-char	*ft_set_s(char *line, char *previous, int isInquote)
-{
-	char	*temp;
-	char	*final;
-	char	*temp2;
-
-	temp2 = NULL;
-	temp = NULL;
-	final = NULL;
-	if (isInquote == 0)
-	{
-		temp2 = ft_with_var(line, NULL, NULL, 0);
-		temp = ft_strjoin(temp2, "\n");
-	}
-	else
-		temp = ft_strjoin(line, "\n");
-	if (previous)
-		final = ft_strjoin(previous, temp);
-	else
-		final = ft_strdup(temp);
-	free(temp);
-	if (temp2)
-		free(temp2);
-	if (previous)
-		free(previous);
-	return (final);
-}
-
-/**
-	@brief Looks for quotes in the heredoc delimiter, retourn 1 if any found
-**/
-int	ft_quote_in_heredoc(char *end)
-{
-	int	i;
-
-	i = 0;
-	while (end[i])
-	{
-		if (end[i] == '\'' || end[i] == '"')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-/** 
-	@brief checks if heredoc delimiter exists. 
-	2. checks if there are quotes 
-**/
-void	ft_bool_heredoc(char **end, int i, int *bool_quote, char **result)
-{
-	if (!end[i] && !*result)
-		*result = ft_strdup("");
-	if (end[i])
-		*bool_quote = ft_quote_in_heredoc(end[i]);
-	else
-		*bool_quote = 0;
-}
-
 
 /** 
     @brief
@@ -108,7 +30,7 @@ void	ft_bool_heredoc(char **end, int i, int *bool_quote, char **result)
 	as input in t_cmd structure
 **/
 
-char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
+static char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 {
 
 	int		i;
@@ -137,69 +59,67 @@ char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 	return (final_line);
 }
 
-static void ft_heredoc_child(char **end, t_cmd *stru, int files[2])
+static char *ft_heredoc_child(char **end, t_cmd *stru)
 {
 	char 	*final_line;
+	char	*result;
 
 	final_line = NULL;
+	ft_termios();
 	final_line = ft_heredoc(end, stru, NULL);
-	write(files[1], final_line, ft_strlen(final_line));
+	reset_terminal();
+	result = ft_strjoin(final_line , "\0");
 	if (final_line)
 		free(final_line);
+	return (result);
+}
+
+static int wait_heredoc(t_cmd *stru, int files[2])
+{
+	int status;
+
+	if (wait(&status) < 0)
+	{
+		kill(g_vars->h_pid, SIGTERM);
+		return (-1);
+	}
+	if (WIFEXITED(status))
+		g_vars->status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+	{
+		printf("passing WIFSIGNALED \n");
+		g_vars->status = 1;
+		return (-1);
+	}
+	g_vars->h_pid = 0;
+	stru->heredoc_in = get_file_text(files[0]);
+	return (status);
 }
 
 pid_t ft_heredoc_fork(char **end, t_cmd *stru)
 {
-	pid_t	pid;
 	int		files[2];
+	int		status;
+	char 	*buffer;
 
-	dup2(g_vars->stdin, STDIN_FILENO);
+	status = 0;
+	stru->heredoc = 1;
 	if (pipe(files) < 0)
+		return(-1);
+	g_vars->h_pid = fork();
+	if (g_vars->h_pid < 0)
 		return (-1);
-	pid = fork();
-	if (pid < 0)
-		return (-1);
-	if (pid)
+	if (!g_vars->h_pid)
 	{
-		dup2(files[0], STDIN_FILENO);
-		close(files[0]);
+		buffer = ft_heredoc_child(end, stru);
+		write(files[1], buffer, ft_strlen(buffer));
 		close(files[1]);
-		return (pid);
-	}
-	ft_heredoc_child(end, stru, files);
-	return(pid);
-}
-
-int wait_heredoc(char **end, t_cmd *stru)
-{
-	int status;
-	reset_terminal(g_vars);
-	// ft_termios();
-	signal(SIGINT, ft_heredoc_handler);
-	g_vars->h_pid = ft_heredoc_fork(end, stru);
-	if (g_vars->h_pid == 0)
+		close(files[0]);
 		exit(0);
-	waitpid(g_vars->h_pid, &status, 0);
-	if (WIFEXITED(status))
-	{
-		g_vars->status = WEXITSTATUS(status);
-		return (status);
 	}
-	else if (WIFSIGNALED(status))
-	{
-		g_vars->status = 2;
-		return (7);
-	}
-	return (0);
-}
-
-int	ft_open(int mode, char *path)
-{
-	int	is_open;
-
-	if (mode == 2)
-		is_open = open(path, O_WRONLY | O_APPEND | O_CREAT, 0777);
-	else
-		is_open = open(path, O_WRONLY | O_TRUNC | O_CREAT, 0777);
-	return (is_open);
+	close(files[1]);
+	status = wait_heredoc(stru, files);
+	close(files[0]);
+	ft_free((void **)end);
+	return (status);
 }

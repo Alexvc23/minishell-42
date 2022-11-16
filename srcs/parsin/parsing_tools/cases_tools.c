@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cases_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 16:55:56 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/08/08 16:55:59 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/11/15 09:40:29 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,7 @@ char	*ft_skip_spaces(char *cmd_b)
 */
 void	ft_fill_err(t_cmd *cmd)
 {
-	cmd->argv = malloc(2 * sizeof(char *));
-	cmd->argv[0] = malloc(2);
-	cmd->argv[1] = NULL;
-	cmd->argv[0][0] = 1;
-	cmd->argv[0][1] = 0;
+	cmd->argv = NULL;
 	cmd->heredoc = 0;
 	if (cmd->in)
 		free(cmd->in);

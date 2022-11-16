@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:06:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/11/10 11:47:03 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/16 19:00:54 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_inicialize_cmd(t_cmd *cmd)
 	cmd->in = NULL;
 	cmd->out = NULL;
 	cmd->heredoc = 0;
+	cmd->heredoc_in = NULL;
 	cmd->append = 0;
 	cmd->argv = NULL;
 	cmd ->next = NULL;

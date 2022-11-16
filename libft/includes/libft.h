@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 09:56:39 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/19 16:52:09 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/14 15:11:50 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include<sys/select.h>
+# define GNL_ERROR 0
+# define GNL_NEW_LINE 1
+# define GNL_NO_NEW_LINE 2
+# define GNL_EOF 3
 
 /* STRUCTURES */
 
@@ -30,6 +35,14 @@ typedef struct s_list
 	struct s_list	*previous;
 
 }					t_list;
+
+typedef struct s_buffer
+{
+	int		start;
+	int		next_l;
+	int		end;
+	char	*data;
+}			t_buffer;
 
 /* FUCTIONS PROTOTYPES */
 
@@ -82,5 +95,6 @@ void			ft_check_prev(t_list **alst);
 void			ft_putnbr_base(char *base, int nbr);
 void			del(void **content);
 void			ft_free(void **arr);
+char			*get_next_line(int fd);
 
 #endif

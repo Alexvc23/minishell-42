@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tool.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvalenci <jvalenci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:55:22 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/12 15:01:20 by jvalenci         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:54:40 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@ void	dup_redirec(t_cmd *cmd)
 		dup2(in, STDIN_FILENO);
 		close(in);
 	}
+	else if (cmd->heredoc)
+		exec_heredoc(cmd);
 	if (cmd->out)
 	{
-		out = open(cmd->out, O_WRONLY | O_CREAT | (
-					O_TRUNC * (cmd->append != 2)) | (
-					O_APPEND * (cmd->append == 2)), 0777);
+		out = open(cmd->out, O_WRONLY | O_CREAT | (O_TRUNC * (cmd->append != 2)) 
+		| (O_APPEND * (cmd->append == 2)), 0777);
 		if (out < 0)
 			exit(1);
 		dup2(out, STDOUT_FILENO);

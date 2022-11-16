@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 08:03:56 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/08 13:27:15 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:39:11 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_free_cmd(t_cmd *cmd)
 			free(tmp->in);
 		if (tmp->out)
 			free(tmp->out);
+		if (tmp->heredoc_in)
+			free(tmp->heredoc_in);
 		free(tmp);
 	}
 }

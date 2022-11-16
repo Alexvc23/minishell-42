@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdevigne <fdevigne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:10:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/08/17 16:41:32 by fdevigne         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:12:05 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

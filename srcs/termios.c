@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 18:05:04 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/24 18:30:03 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/14 18:32:30 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_termios(void)
 }
 
 /* restablished default termios attributes */
-void	reset_terminal(t_shell *t)
+void	reset_terminal(void)
 {
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &t->term_save);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_vars->term_save);
 }

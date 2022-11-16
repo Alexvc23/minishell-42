@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 13:34:15 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/11/10 11:37:08 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/16 19:03:09 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+
 /* 
 linked list representing each cmd passed with its arguments if
 there are. Boolean checking heredoc mode, output file append mode,
@@ -92,6 +93,7 @@ typedef struct s_cmd {
 	char			*in;
 	char			*out;
 	int				heredoc;
+	char			*heredoc_in;
 	int				append;
 	char			**argv;
 	struct s_cmd	*next;
@@ -135,17 +137,16 @@ t_shell	*g_vars;
 //
 
 /* parsing */
-t_env	*ft_set_env(char **argv);
-t_cmd	*ft_parse_cmd(char *line);
-void	ft_create_tokens(char *cmd_b, t_cmd *cmd);
-int		ft_redirec_output(char *cmd, t_cmd *stru, char *path, int mode);
-int		ft_redirec_input(char *cmd, t_cmd *stru, char *notVar, int mode);
-char	**ft_conv_args(char *b_cmd);
-char	*ft_own_strjoin(char *s1, char *s2);
-char	*ft_with_var(char *brut, char *tempStart, char *tempEnd, int i);
-void	ft_cut_re(int *mode, char **path, int *i, char *cmd);
-char	*ft_heredoc(char **end, t_cmd *stru, char *final_line);
-int		wait_heredoc(char **end, t_cmd *stru);
+t_env		*ft_set_env(char **argv);
+t_cmd		*ft_parse_cmd(char *line);
+void		ft_create_tokens(char *cmd_b, t_cmd *cmd);
+int			ft_redirec_output(char *cmd, t_cmd *stru, char *path, int mode);
+int			ft_redirec_input(char *cmd, t_cmd *stru, char *notVar, int mode);
+char		**ft_conv_args(char *b_cmd);
+char		*ft_own_strjoin(char *s1, char *s2);
+char		*ft_with_var(char *brut, char *tempStart, char *tempEnd, int i);
+void		ft_cut_re(int *mode, char **path, int *i, char *cmd);
+pid_t		ft_heredoc_fork(char **end, t_cmd *stru);
 
 /* parsing tools*/
 int			ft_doublequotes(char *str, int index);
@@ -171,6 +172,10 @@ void		ft_join_temp_end(char **tempEnd, int *i, char **result,
 				char **tempResult);
 void		without_quote_args(t_cmd *env);
 int			ft_get_next_space(char *cmd, int index);
+char		*ft_set_s(char *line, char *previous, int isInquote);
+int			ft_quote_in_heredoc(char *end);
+void		ft_bool_heredoc(char **end, int i, int *bool_quote, char **result);
+int			ft_open(int mode, char *path);
 
 /* check */
 void		ft_check_quotes(char *line);
@@ -178,8 +183,9 @@ void		ft_check_pipe(char *line);
 void		ft_check_redir(char *line);
 
 /* I/O  */
-void		reset_terminal(t_shell *t);
+void		reset_terminal(void);
 void		ft_termios(void);
+void		handler(int status);
 
 // builtins
 int			ft_cd(char **argv, t_env **env);
@@ -218,12 +224,13 @@ void	hide_sig(int sig);
 int		ft_increase_shlvl(t_env	*env);
 t_heredoc *inicialize_heredoc(void);
 int		ft_counter(t_cmd	*cmd);
+char	* get_file_text(int fd); 
 
 // EXECUTION
 void		exec(t_cmd	*cmd);
 pid_t		exec_pipe(t_cmd *cmd, t_env **env);
 pid_t		exec_single(t_cmd *cmd, t_env **env, int id);
-pid_t		exec_heredoc(t_cmd *cmd);
+void		exec_heredoc(t_cmd *cmd);
 void		dup_redirec(t_cmd *cmd);
 int			ft_is_builtin(t_cmd *cmd);
 

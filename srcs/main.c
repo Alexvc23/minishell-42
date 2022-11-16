@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:56:37 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/11/10 11:53:05 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/16 19:01:35 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,11 @@
 
 void	clear_exit(void)
 {
-	reset_terminal(g_vars);
+	reset_terminal();
 	ft_free_env(g_vars->env);
 	ft_putstr_fd("exit", 1);
 	free(g_vars);
 	exit(0);
-}
-/* 
-Function called by signal SIGINT(interrupt from keyboard) in main program
-this will mimic shell prompt behavior
-
-SIGQUIT will do nothing just refresh view
-*/
-
-void	handler(int status)
-{
-	
-	if (ft_size_list2(g_vars->cmd) > 0)
-		return ;
-	if (status == SIGINT)
-	{
-			rl_redisplay();
-			rl_replace_line("", 0);
-			write(1, "\n", 1);
-	}
-	else if (status == SIGQUIT)
-	{}
-	rl_on_new_line();
-	rl_redisplay();
 }
 
 /* infinite loop receiving input, it checks commands followed by white space
@@ -56,7 +33,8 @@ void	ft_prompt(void)
 	ft_termios();
 	signal(SIGINT, handler);
 	signal(SIGQUIT, handler);
-	entry = readline("Minishell_> ");
+	entry = readline("Minishell >");
+	reset_terminal();
 	if (!entry)
 		clear_exit();
 	while (entry[i] && entry[i] == ' ')
@@ -81,10 +59,10 @@ int	main(int argc, char **argv, char **env)
 	g_vars->stdin = dup(STDIN_FILENO);
 	g_vars->stdout = dup(STDOUT_FILENO);
 	g_vars->stderr = dup(STDERR_FILENO);
-	g_vars->h_pid = 0;
 	g_vars->env = ft_set_env(env);
-	ft_update_env(&g_vars->env, ft_strdup("SHLVL"),
-		ft_itoa(ft_increase_shlvl(g_vars->env)));
+	g_vars->h_pid = 0;
+	// ft_update_env(&g_vars->env, ft_strdup("SHLVL"),
+	// 	ft_itoa(ft_increase_shlvl(g_vars->env)));
 	while (1)
 		ft_prompt();
 	
