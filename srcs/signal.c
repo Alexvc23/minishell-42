@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 18:33:35 by alexanderva       #+#    #+#             */
-/*   Updated: 2022/11/15 09:35:04 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/16 19:19:42 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 static void	heredoc_handler(int sig)
 {
 	if (sig == SIGINT)
+	{
 		kill(g_vars->h_pid, SIGTERM);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+	}
 }
 
 /*
@@ -43,7 +46,6 @@ static void	shell_handler(int status)
 
 void handler(int status)
 {
-	printf("h_pid: %d\n", g_vars->h_pid);
 	if (g_vars->h_pid == 0)
 	{
 		shell_handler(status);
