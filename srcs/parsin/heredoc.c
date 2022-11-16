@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 12:38:25 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/11/16 18:49:11 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/16 19:18:52 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*ft_heredoc(char **end, t_cmd *stru, char *final_line)
 	i = 0;
 	while (end[i])
 	{
-		line = readline("\033[31mHEREDOC\033[0m> ");
+		line = readline("HEREDOC> ");
 		if (!line )
 			break ;
 		temp = ft_gro_quotes(end[i]);
@@ -87,11 +87,9 @@ static int wait_heredoc(t_cmd *stru, int files[2])
 		g_vars->status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 	{
-		printf("passing WIFSIGNALED \n");
 		g_vars->status = 1;
 		return (-1);
 	}
-	g_vars->h_pid = 0;
 	stru->heredoc_in = get_file_text(files[0]);
 	return (status);
 }
@@ -119,6 +117,7 @@ pid_t ft_heredoc_fork(char **end, t_cmd *stru)
 	}
 	close(files[1]);
 	status = wait_heredoc(stru, files);
+	g_vars->h_pid = 0;
 	close(files[0]);
 	ft_free((void **)end);
 	return (status);

@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 14:59:38 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/11/15 09:36:36 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/16 19:09:11 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ft_fill_cmd(char *cmd_b, t_cmd *cmd)
 	err[1] = ft_redirec_output(cmd_true, cmd, NULL, 0);
 	if ((err[0] == -1 || err[1] == -1))
 	{
-		printf("passing by here\n");
 		ft_fill_err(cmd);
 		ft_free_multiple(cmd_true, temp, NULL, NULL);
 		return ;
