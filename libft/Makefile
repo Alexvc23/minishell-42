@@ -8,7 +8,7 @@
 
 AT = @
 LIBRARY	= libft.a
-FLAGS	= -Wall -Werror -Wextra
+FLAGS	= -Wall -Werror -Wextra -D BUFFER_SIZE=100
 
 DIR_SRCS = srcs
 DIR_OBJS = objs
@@ -61,7 +61,8 @@ ft_substr.c \
 ft_tolower.c \
 ft_toupper.c \
 ft_put_nbr_base.c \
-ft_free.c
+ft_free.c\
+get_next_line.c
 
 C_BONUS = \
 	  ft_lstadd_front.c	\

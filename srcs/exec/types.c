@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:54:48 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/25 14:04:19 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/16 18:56:34 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ static void	exec_cmd(t_cmd *cmd, t_env **env)
 	path_cmd = ft_get_cmd(ft_find_path(arr_env), cmd->argv[0]);
 	execve(path_cmd, cmd->argv, arr_env);
 	dup2(STDERR_FILENO, STDOUT_FILENO);
-	if (errno == 2)
+	if (errno == ENOENT || errno == EACCES)
 		printf("Command '%s' not found.\n", cmd->argv[0]);
 	else
 		printf("%s: %s.\n", cmd->argv[0], strerror(errno));
 	dup2(g_vars->stdout, STDOUT_FILENO);
 	free(path_cmd);
 	ft_free((void **)arr_env);
-	if (errno == 2 || errno == EACCES)
-		exit((errno == 2) * 127 + (errno == EACCES) * 126);
+	if (errno == ENOENT || errno == EACCES)
+		exit(127);
 	exit(1);
 }
 
@@ -149,26 +149,16 @@ pid_t	exec_pipe(t_cmd *cmd, t_env **env)
 	string, then a pipe is created and heredoc buffer is stored in file pipe [1] 
 	with the help of write
 */
-pid_t	exec_heredoc(t_cmd *cmd)
+void	exec_heredoc(t_cmd *cmd)
 {
-	pid_t	pid;
 	int		file[2];
 
 	if (pipe(file) < 0)
-		return (-1);
-	pid = fork();
-	if (pid)
-	{
-		dup2(file[0], STDIN_FILENO);
-		close(file[0]);
-		close(file[1]);
-		return (pid);
-	}
-	if (!cmd->in)
+		return ;
+	if (!cmd->heredoc)
 		cmd->in = ft_strdup("");
-	pid = write(file[1], cmd->in, ft_strlen(cmd->in));
+	write(file[1], cmd->heredoc_in, ft_strlen(cmd->heredoc_in));
+	dup2(file[0], STDIN_FILENO);
 	close(file[0]);
 	close(file[1]);
-	exit(pid);
-	return (pid);
 }

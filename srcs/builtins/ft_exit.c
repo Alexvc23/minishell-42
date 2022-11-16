@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:25:13 by fdevigne          #+#    #+#             */
-/*   Updated: 2022/10/24 21:11:20 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/16 14:51:25 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_exit(t_cmd *cmd)
 	status = ft_strnum(cmd->argv[1]);
 	ft_free_cmd(cmd);
 	free(g_vars->pids);
-	reset_terminal(g_vars);
+	reset_terminal();
 	ft_free_env(g_vars->env);
 	free(g_vars);
 	exit(status);

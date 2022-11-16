@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 20:55:22 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/25 14:50:03 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/14 16:54:40 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	dup_redirec(t_cmd *cmd)
 {
 	int	in;
 	int	out;
-	// char buffer[100];
 
 	if (cmd->in && !cmd->heredoc)
 	{
@@ -51,16 +50,7 @@ void	dup_redirec(t_cmd *cmd)
 		close(in);
 	}
 	else if (cmd->heredoc)
-	{
-		printf("heredoc\n");
-		dup2(cmd->heredoc_file[0], STDIN_FILENO);
-		// printf("%d\n", g_vars->h_files[0]);
-		// read(g_vars->files[0], buffer, 100);
-		// printf("%s\n", buffer);
-		close(cmd->heredoc_file[0]);
-		close(cmd->heredoc_file[1]);
-		cmd->heredoc = 0;
-	}
+		exec_heredoc(cmd);
 	if (cmd->out)
 	{
 		out = open(cmd->out, O_WRONLY | O_CREAT | (O_TRUNC * (cmd->append != 2)) 

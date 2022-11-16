@@ -6,7 +6,7 @@
 /*   By: alexandervalencia <alexandervalencia@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 09:12:13 by jvalenci          #+#    #+#             */
-/*   Updated: 2022/10/20 19:05:30 by alexanderva      ###   ########.fr       */
+/*   Updated: 2022/11/15 09:44:22 by alexanderva      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ static void ft_manipulate(char *line, int err)
 	{
 		cmd = ft_parse_cmd(line);
 		if (!cmd)
-			printf("%s\n", "Memory error");
+			perror("Error allocating memory to create cmd\n");
+		else if(!cmd->argv)
+			return ;
 		else
 			exec(cmd);
 	}
